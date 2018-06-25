@@ -1,0 +1,6 @@
+Compiling ffmpeg
+	-> https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
+
+ffserver 
+	-> https://trac.ffmpeg.org/wiki/ffserver
+
