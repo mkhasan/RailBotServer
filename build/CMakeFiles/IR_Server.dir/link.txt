@@ -1,0 +1,1 @@
+/usr/bin/c++   -ggdb -Wall  -rdynamic CMakeFiles/IR_Server.dir/src/IR_Server.cpp.o CMakeFiles/IR_Server.dir/src/JPEGSamples.cpp.o  -o ../bin/IR_Server 

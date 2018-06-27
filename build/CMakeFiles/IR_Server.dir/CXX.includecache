@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/usrc/external/RailRobot/RailBotServer/src/JPEGSamples.cpp
+JPEGSamples.h
+/home/usrc/external/RailRobot/RailBotServer/src/JPEGSamples.h
+
+/home/usrc/external/RailRobot/RailBotServer/src/JPEGSamples.h
+

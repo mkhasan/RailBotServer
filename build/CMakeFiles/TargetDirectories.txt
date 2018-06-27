@@ -1,0 +1,3 @@
+/home/usrc/external/RailRobot/RailBotServer/build/CMakeFiles/rebuild_cache.dir
+/home/usrc/external/RailRobot/RailBotServer/build/CMakeFiles/edit_cache.dir
+/home/usrc/external/RailRobot/RailBotServer/build/CMakeFiles/IR_Server.dir

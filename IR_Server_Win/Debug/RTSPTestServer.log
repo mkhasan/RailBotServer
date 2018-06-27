@@ -1,6 +1,0 @@
-﻿  RTSPTestServer.cpp
-f:\railrobot\railbotserver\ir_server_win\rtsptestserver.cpp(37): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-f:\railrobot\railbotserver\ir_server_win\rtsptestserver.cpp(101): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-  c:\program files (x86)\windows kits\8.1\include\um\winsock2.h(1868): note: see declaration of 'inet_ntoa'
-  RTSPTestServer.vcxproj -> F:\RailRobot\RailBotServer\IR_Server_Win\Debug\RTSPTestServer.exe
-  RTSPTestServer.vcxproj -> F:\RailRobot\RailBotServer\IR_Server_Win\Debug\RTSPTestServer.pdb (Full PDB)
