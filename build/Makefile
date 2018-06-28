@@ -123,6 +123,60 @@ IR_Server/fast:
 	$(MAKE) -f CMakeFiles/IR_Server.dir/build.make CMakeFiles/IR_Server.dir/build
 .PHONY : IR_Server/fast
 
+src/CRtspSession.o: src/CRtspSession.cpp.o
+
+.PHONY : src/CRtspSession.o
+
+# target to build an object file
+src/CRtspSession.cpp.o:
+	$(MAKE) -f CMakeFiles/IR_Server.dir/build.make CMakeFiles/IR_Server.dir/src/CRtspSession.cpp.o
+.PHONY : src/CRtspSession.cpp.o
+
+src/CRtspSession.i: src/CRtspSession.cpp.i
+
+.PHONY : src/CRtspSession.i
+
+# target to preprocess a source file
+src/CRtspSession.cpp.i:
+	$(MAKE) -f CMakeFiles/IR_Server.dir/build.make CMakeFiles/IR_Server.dir/src/CRtspSession.cpp.i
+.PHONY : src/CRtspSession.cpp.i
+
+src/CRtspSession.s: src/CRtspSession.cpp.s
+
+.PHONY : src/CRtspSession.s
+
+# target to generate assembly for a file
+src/CRtspSession.cpp.s:
+	$(MAKE) -f CMakeFiles/IR_Server.dir/build.make CMakeFiles/IR_Server.dir/src/CRtspSession.cpp.s
+.PHONY : src/CRtspSession.cpp.s
+
+src/CStreamer.o: src/CStreamer.cpp.o
+
+.PHONY : src/CStreamer.o
+
+# target to build an object file
+src/CStreamer.cpp.o:
+	$(MAKE) -f CMakeFiles/IR_Server.dir/build.make CMakeFiles/IR_Server.dir/src/CStreamer.cpp.o
+.PHONY : src/CStreamer.cpp.o
+
+src/CStreamer.i: src/CStreamer.cpp.i
+
+.PHONY : src/CStreamer.i
+
+# target to preprocess a source file
+src/CStreamer.cpp.i:
+	$(MAKE) -f CMakeFiles/IR_Server.dir/build.make CMakeFiles/IR_Server.dir/src/CStreamer.cpp.i
+.PHONY : src/CStreamer.cpp.i
+
+src/CStreamer.s: src/CStreamer.cpp.s
+
+.PHONY : src/CStreamer.s
+
+# target to generate assembly for a file
+src/CStreamer.cpp.s:
+	$(MAKE) -f CMakeFiles/IR_Server.dir/build.make CMakeFiles/IR_Server.dir/src/CStreamer.cpp.s
+.PHONY : src/CStreamer.cpp.s
+
 src/IR_Server.o: src/IR_Server.cpp.o
 
 .PHONY : src/IR_Server.o
@@ -186,6 +240,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... IR_Server"
+	@echo "... src/CRtspSession.o"
+	@echo "... src/CRtspSession.i"
+	@echo "... src/CRtspSession.s"
+	@echo "... src/CStreamer.o"
+	@echo "... src/CStreamer.i"
+	@echo "... src/CStreamer.s"
 	@echo "... src/IR_Server.o"
 	@echo "... src/IR_Server.i"
 	@echo "... src/IR_Server.s"

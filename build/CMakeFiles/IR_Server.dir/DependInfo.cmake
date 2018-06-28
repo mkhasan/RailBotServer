@@ -4,6 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/usrc/external/RailRobot/RailBotServer/src/CRtspSession.cpp" "/home/usrc/external/RailRobot/RailBotServer/build/CMakeFiles/IR_Server.dir/src/CRtspSession.cpp.o"
+  "/home/usrc/external/RailRobot/RailBotServer/src/CStreamer.cpp" "/home/usrc/external/RailRobot/RailBotServer/build/CMakeFiles/IR_Server.dir/src/CStreamer.cpp.o"
   "/home/usrc/external/RailRobot/RailBotServer/src/IR_Server.cpp" "/home/usrc/external/RailRobot/RailBotServer/build/CMakeFiles/IR_Server.dir/src/IR_Server.cpp.o"
   "/home/usrc/external/RailRobot/RailBotServer/src/JPEGSamples.cpp" "/home/usrc/external/RailRobot/RailBotServer/build/CMakeFiles/IR_Server.dir/src/JPEGSamples.cpp.o"
   )
