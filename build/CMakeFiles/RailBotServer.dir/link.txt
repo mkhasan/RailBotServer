@@ -1,1 +1,0 @@
-/usr/bin/c++   -ggdb -Wall  -rdynamic CMakeFiles/RailBotServer.dir/src/RailBotServer.cpp.o  -o ../bin/RailBotServer 
