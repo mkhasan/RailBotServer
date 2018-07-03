@@ -45,9 +45,6 @@ struct RtspReqData{
 
 const int port = 8555;
 
-timeval now, start_time;
-
-
 
 
 

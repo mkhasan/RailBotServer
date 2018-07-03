@@ -5,6 +5,8 @@
  *      Author: usrc
  */
 
+#include "IR_Image.h"
+
 #include "ir_viewer.h"
 #include "Socket.h"
 #include "CircularBuffer.h"
@@ -31,7 +33,11 @@ using std::cerr;
 using std::endl;
 
 
+
+
 const char * hostIP = "143.248.204.35";
+
+static void CatchSignal(int sig);
 
 SDL_Surface* screen;
 SDL_mutex       *screen_mutex;
@@ -40,6 +46,27 @@ void set_pixel(SDL_Surface *surface, int x, int y, Uint32 pixel);
 
 int main(int argc, char **argv) {
 	int ret = 0;
+
+
+	signal(SIGTERM, CatchSignal);
+	//signal(SIGINT, CatchSignal);		// caught in a different way for testing
+	signal(SIGHUP, CatchSignal);
+	signal(SIGKILL, CatchSignal);
+	signal(SIGTSTP, CatchSignal);
+
+
+	ACE_SV_Semaphore_Complex mutex;
+
+	if(mutex.open (SEM_KEY_1, ACE_SV_Semaphore_Complex::ACE_CREATE, 1) == -1)
+		RB_ERROR_RETURN(("Error in getting mutex \n"), -1);
+
+
+	ACE_SV_Semaphore_Complex synch;
+	if(synch.open (SEM_KEY_2,
+						  ACE_SV_Semaphore_Complex::ACE_CREATE,
+						  1) == -1)
+		RB_ERROR_RETURN(("Error in getting sync \n"), -1);
+
 
 
 
@@ -158,4 +185,11 @@ void set_pixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
   Uint32 *target_pixel = (Uint32 *)((Uint8 *) surface->pixels + y * surface->pitch +
                                                      x * sizeof *target_pixel);
   *target_pixel = pixel;
+}
+
+void CatchSignal(int sig)
+{
+
+	RB_DEBUG("Signal %d caught", sig);
+
 }

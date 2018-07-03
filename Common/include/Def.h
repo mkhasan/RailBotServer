@@ -157,4 +157,38 @@ const RGB_T iron[128] =  {
 };
 
 
+#define SKI_DEFAULT_SEM_KEY ACE_DEFAULT_SEM_KEY
+#define BASE 1
+
+#define SEM_KEY_1 (SKI_DEFAULT_SEM_KEY+10*BASE+1)
+#define SEM_KEY_2 (SKI_DEFAULT_SEM_KEY+10*BASE+2)
+
+#include <sys/time.h>
+
+#define RB_DEBUG(...) \
+	gettimeofday(&now, NULL); \
+	printf("[%Lu:%Lu] ", now.tv_sec-start_time.tv_sec, now.tv_usec); \
+	printf(__VA_ARGS__)
+
+#define RB_ERROR(...) \
+	gettimeofday(&now, NULL); \
+	printf("[%Lu:%Lu] ", now.tv_sec-start_time.tv_sec, now.tv_usec); \
+	printf(__VA_ARGS__)
+
+
+#define RB_DEBUG_RETURN(X, Y) {\
+	RB_DEBUG(X); \
+	return Y; \
+	}
+
+#define RB_ERROR_RETURN(X, Y) { \
+	RB_ERROR(X); \
+	return Y; \
+	}
+
+
+extern timeval now;
+extern timeval start_time;
+
+
 #endif //ROBOTCONTROL_DEF_H

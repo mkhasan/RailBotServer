@@ -14,8 +14,6 @@ message("all cpp ${IR_CPP}")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SDL_CFLAGS} -ggdb -Wall -std=c++0x -Wno-narrowing")
 
 
-
-
 set (IR_HANDLER_SRC ${IR_CPP} 
 	src/${TARGET}.cpp  
 	src/CircularBuffer.cpp
@@ -25,8 +23,15 @@ set (IR_HANDLER_SRC ${IR_CPP}
 	
 	)
 
-add_executable(${TARGET} ${IR_HANDLER_SRC})
 
-target_link_libraries(${TARGET} SDL pthread)
+include_directories(${PROJECT_SOURCE_DIR}/Common/include)
+
+include_directories($ENV{ACE_ROOT})
+
+link_directories($ENV{ACE_ROOT}/lib)
+
+add_executable(${TARGET} ${IR_HANDLER_SRC} ${COMMON_SRC})
+
+target_link_libraries(${TARGET} SDL ACE pthread)
 
  
