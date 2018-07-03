@@ -1,1 +1,0 @@
-/usr/bin/c++   -ggdb -Wall -std=c++0x -Wno-narrowing  -rdynamic CMakeFiles/IR_Server.dir/src/IR_Server.cpp.o CMakeFiles/IR_Server.dir/src/JPEGSamples.cpp.o CMakeFiles/IR_Server.dir/src/CStreamer.cpp.o CMakeFiles/IR_Server.dir/src/CRtspSession.cpp.o  -o ../../bin/IR_Server -lpthread 

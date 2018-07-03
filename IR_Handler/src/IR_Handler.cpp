@@ -5,10 +5,13 @@
  *      Author: usrc
  */
 
+#include "ir_viewer.h"
+#include "Socket.h"
+#include "CircularBuffer.h"
+
+
+
 #include <stdio.h>
-#include <ir_viewer.h>
-#include <Socket.h>
-#include <CircularBuffer.h>
 
 #include <errno.h>
 #include <signal.h>
