@@ -6,4 +6,5 @@ PROJECT (SKI_ROBOT)
 
 
 add_subdirectory(./IR_Server)
+add_subdirectory(./IR_Handler)
  
