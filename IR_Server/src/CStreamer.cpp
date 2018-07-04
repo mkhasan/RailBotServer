@@ -57,7 +57,7 @@ CStreamer::~CStreamer()
 };
 
 
-void CStreamer::SendRtpPacket(const char * data, int dataLength, bool isLastFragment)
+void CStreamer::SendRtpPacket(const char * data, int dataLength, bool isLastFragment, unsigned short width, unsigned short height, unsigned char pixelSize )
 {
 #define KRtpHeaderSize RTP_HEADER_SIZE           // size of the RTP header
 
@@ -78,17 +78,18 @@ void CStreamer::SendRtpPacket(const char * data, int dataLength, bool isLastFrag
 
     // Prepare the 12 byte RTP header
     RtpBuf[0]  = 0x80;                               // RTP version
-    RtpBuf[1]  = 0x9a;			                     // JPEG payload (26) and marker bit
+    RtpBuf[1]  = pixelSize;			                     // JPEG payload (26) and marker bit
     RtpBuf[2]  = m_SequenceNumber & 0x0FF;           // each packet is counted with a sequence counter
     RtpBuf[3]  = m_SequenceNumber >> 8;
     RtpBuf[4]  = (m_Timestamp & 0xFF000000) >> 24;   // each image gets a timestamp
     RtpBuf[5]  = (m_Timestamp & 0x00FF0000) >> 16;
     RtpBuf[6] = (m_Timestamp & 0x0000FF00) >> 8;
     RtpBuf[7] = (m_Timestamp & 0x000000FF);
-    RtpBuf[8] = 0x13;							     // 4 byte SSRC (sychronization source identifier)
-    RtpBuf[9] = 0xf9;                               // we just an arbitrary number here to keep it simple
-    RtpBuf[10] = 0x7e;
-    RtpBuf[11] = 0x67;
+    RtpBuf[8] = width & 0xFF ;							     // 4 byte SSRC (sychronization source identifier)
+    RtpBuf[9] = width >> 8;                               // we just an arbitrary number here to keep it simple
+    RtpBuf[10] = height & 0xFF;
+    RtpBuf[11] = height >> 8;
+
 
 	if (m_SequenceNumber == 35)
 		;//dataLength = dataLength;

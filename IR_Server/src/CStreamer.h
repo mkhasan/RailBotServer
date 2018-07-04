@@ -22,7 +22,7 @@ public:
     void    StreamImage(int StreamID);
 
 private:
-    void    SendRtpPacket(const char * data, int dataLength, bool isLastFragment);
+    void    SendRtpPacket(const char * data, int dataLength, bool isLastFragment, unsigned short width, unsigned short height, unsigned char pixelSize);
 
     ImageProcessor * m_ImageProcessor;
     int  m_RtpSocket;          // RTP socket for streaming RTP packets to client

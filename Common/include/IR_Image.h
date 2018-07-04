@@ -21,9 +21,11 @@ class IR_Image
 
 public:
 
-	static const int SIZE = 180000;
+	static const int SIZE = 204800;
 
 	char data[SIZE];		// Mail Box contains a array of mail items
+	int width;
+	int height;
 
 };
 
