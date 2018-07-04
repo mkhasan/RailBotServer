@@ -160,8 +160,11 @@ const RGB_T iron[128] =  {
 #define SKI_DEFAULT_SEM_KEY ACE_DEFAULT_SEM_KEY
 #define BASE 1
 
+
 #define SEM_KEY_1 (SKI_DEFAULT_SEM_KEY+10*BASE+1)
 #define SEM_KEY_2 (SKI_DEFAULT_SEM_KEY+10*BASE+2)
+
+#define SHM_KEY (SKI_DEFAULT_SEM_KEY+10*BASE)
 
 #include <sys/time.h>
 
@@ -186,7 +189,7 @@ const RGB_T iron[128] =  {
 	return Y; \
 	}
 
-
+#define SKI_ASSERT ACE_ASSERT
 extern timeval now;
 extern timeval start_time;
 

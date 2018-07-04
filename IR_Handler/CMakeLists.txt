@@ -11,7 +11,7 @@ execute_process(COMMAND pkg-config --cflags sdl OUTPUT_VARIABLE SDL_CFLAGS OUTPU
 
 message("all cpp ${IR_CPP}")
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SDL_CFLAGS} -ggdb -Wall -std=c++0x -Wno-narrowing")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SDL_CFLAGS} -ggdb -Wall -std=c++0x -Wno-narrowing -w")
 
 
 set (IR_HANDLER_SRC ${IR_CPP} 

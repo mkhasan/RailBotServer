@@ -42,7 +42,12 @@ static void CatchSignal(int sig);
 SDL_Surface* screen;
 SDL_mutex       *screen_mutex;
 
+ACE_SV_Semaphore_Complex mutex;
+IR_Image * pImage = NULL;
+
 void set_pixel(SDL_Surface *surface, int x, int y, Uint32 pixel);
+
+
 
 int main(int argc, char **argv) {
 	int ret = 0;
@@ -55,7 +60,8 @@ int main(int argc, char **argv) {
 	signal(SIGTSTP, CatchSignal);
 
 
-	ACE_SV_Semaphore_Complex mutex;
+	//////////////////   For Shared memory ///////////////////////////
+
 
 	if(mutex.open (SEM_KEY_1, ACE_SV_Semaphore_Complex::ACE_CREATE, 1) == -1)
 		RB_ERROR_RETURN(("Error in getting mutex \n"), -1);
@@ -68,7 +74,17 @@ int main(int argc, char **argv) {
 		RB_ERROR_RETURN(("Error in getting sync \n"), -1);
 
 
+	ACE_Shared_Memory_SV shm_server (SHM_KEY,
+								   sizeof (IR_Image),
+								   ACE_Shared_Memory_SV::ACE_CREATE);
+	char *shm = (char *) shm_server.malloc ();
 
+	if (shm == 0)
+		RB_ERROR_RETURN(("Error in allocationg shared mem \n"), -1);
+
+	pImage = new (shm) IR_Image;
+
+	//////////////////   For Shared memory ///////////////////////////
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
@@ -109,6 +125,11 @@ int main(int argc, char **argv) {
 	}
 
 	usleep(100000);
+
+
+
+
+
 
 	ret = Play(pIR_Viewer);
 
@@ -174,6 +195,36 @@ int main(int argc, char **argv) {
 
 
 	jni_ir_viewer_dealloc((void *)NULL, (void *)NULL);
+
+
+	//////////////////   For Shared memory ///////////////////////////
+
+
+	RB_DEBUG("Trying to terminate normally ...\n");
+
+	if (synch.acquire () == -1)		// wait here if someone else is accessing or going to access shared memory
+		RB_ERROR_RETURN(("Error in acquiring synch\n"), -1);
+
+	RB_DEBUG("Terminating normally ...\n");
+
+	if (mutex.remove () == -1)
+		RB_ERROR_RETURN(("Error in removing mutex \n"), -1);
+
+
+
+	if (shm_server.remove () < 0)
+		RB_ERROR_RETURN(("Error in removing Mail Box \n"), -1);
+
+
+
+	if (synch.release () == -1)
+		RB_ERROR_RETURN(("Error in release Mail Box synch\n"), -1);
+
+	if (synch.remove () == -1)
+		RB_ERROR_RETURN(("Error in removing Mail Box synch\n"), -1);
+
+	//////////////////   For Shared memory ///////////////////////////
+
 
 	return 0;
 

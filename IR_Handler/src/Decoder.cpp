@@ -8,6 +8,7 @@
 #include "ir_viewer.h"
 #include "CircularBuffer.h"
 #include "Def.h"
+#include "IR_Image.h"
 
 #define LIVE_MPEG    0
 #define LIVE_JPEG    1
@@ -19,6 +20,11 @@
 
 #define FRAME_PREFIX_SIZE 12
 #define WORD unsigned short
+
+
+extern ACE_SV_Semaphore_Complex mutex;
+extern IR_Image * pImage;
+
 
 int DecodeFrame(struct Viewer * pViewer)
 {
@@ -180,6 +186,16 @@ int DecodeFrame(struct Viewer * pViewer)
                     LOGE(1, "Too large data")
                     return 0;
                 }
+
+                if(pViewer->cx*pViewer->cy*sizeof(WORD) > IR_Image::SIZE)
+                	RB_ERROR_RETURN(("DecodeFrame: Insufficient space \n "), 0);
+
+                mutex.acquire();
+                for (int i=0; i<pViewer->cx*pViewer->cy*sizeof(WORD); i++)
+                	pImage->data[i] = ptr[i];
+                mutex.release();
+
+
                 for(int y=0;y<pViewer->cy;y++) {
                     for(int x=0;x<pViewer->cx;x++) {
                         //m_pOutFrame[(pViewer->cx*3)*y+3*x+0] = (ptr[pViewer->cx*2*y + 2*x + 1]>>6) | ((ptr[pViewer->cx*2*y + 2*x + 0]&0x1F) << 2) | ((ptr[pViewer->cx*2*y + 2*x + 0]&0x40)<<1);
@@ -198,6 +214,8 @@ int DecodeFrame(struct Viewer * pViewer)
 
                         if(t>=max) max=t;
                         if(t<min) min=t;
+
+
 
 
 
