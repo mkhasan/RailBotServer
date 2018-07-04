@@ -189,7 +189,7 @@ const RGB_T iron[128] =  {
 	return Y; \
 	}
 
-#define SKI_ASSERT ACE_ASSERT
+#define RB_ASSERT ACE_ASSERT
 extern timeval now;
 extern timeval start_time;
 

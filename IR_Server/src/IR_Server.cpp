@@ -46,7 +46,9 @@ struct RtspReqData{
 const int port = 8555;
 
 
+ACE_SV_Semaphore_Complex mutex;
 
+IR_Image *pImage = NULL;
 
 int main(int argc , char *argv[])
 {
@@ -59,8 +61,37 @@ int main(int argc , char *argv[])
     struct sockaddr_in ServerAddr , ClientAddr;
 
     //Create socket
-
     gettimeofday(&start_time, NULL);
+
+
+    //////////////////   For Shared memory ///////////////////////////
+
+	if(mutex.open (SEM_KEY_1, ACE_SV_Semaphore_Complex::ACE_CREATE, 1) == -1)
+		RB_ERROR_RETURN(("IR_Server: Error in getting mutex \n"), -1);
+
+
+	ACE_SV_Semaphore_Complex synch;
+	if(synch.open (SEM_KEY_2,
+						  ACE_SV_Semaphore_Complex::ACE_CREATE,
+						  1) == -1)
+		RB_ERROR_RETURN(("IR_Server: Error in getting sync \n"), -1);
+
+
+	ACE_Shared_Memory_SV shm_client (SHM_KEY, sizeof (IR_Image));
+
+	char *shm = (char *) shm_client.malloc ();
+
+	if (shm == 0)
+		RB_ERROR_RETURN(("IR_Server: Error in connecting IR_Image \n"), -1);
+
+
+	pImage = new (shm) IR_Image;
+
+	if (synch.acquire () == -1)
+		RB_ERROR_RETURN(("IR_Server: Error in acquiring synch\n"), -1);
+
+
+	//////////////////   For Shared memory ///////////////////////////
 
     MasterSocket = socket(AF_INET , SOCK_STREAM , 0);
     if (MasterSocket == -1)
@@ -129,6 +160,10 @@ int main(int argc , char *argv[])
 
     close(MasterSocket);
 
+    if (synch.release () == -1)
+    	RB_ERROR_RETURN(("IR_Server: Error in releasing synch\n"), -1);
+
+
     return 0;
 
 }
@@ -139,9 +174,11 @@ void *SessionThreadHandler(void *socket_desc)
     //Get the socket descriptor
     int Client = *(int*)socket_desc;
 
+    ImageProcessor imgPro;
+
 
     int res;
-    CStreamer Streamer(Client);
+    CStreamer Streamer(Client, &imgPro);
     CRtspSession RtspSession(Client, &Streamer);
     int StreamID = 0;
 

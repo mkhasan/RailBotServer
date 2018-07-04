@@ -25,6 +25,9 @@
 #include "CStreamer.h"
 #include "JPEGSamples.h"
 
+#include "IR_Image.h"
+
+
 #include <stdio.h>
 #include <string.h>    //strlen
 #include <stdlib.h>    //strlen
@@ -32,7 +35,9 @@
 #include <arpa/inet.h> //inet_addr
 #include <unistd.h>    //write
 
-CStreamer::CStreamer(int aClient):m_Client(aClient)
+CStreamer::CStreamer(int aClient, ImageProcessor *aImgProcessor)
+	: m_Client(aClient)
+	, m_ImageProcessor(aImgProcessor)
 {
     m_RtpServerPort  = 0;
     m_RtcpServerPort = 0;
@@ -51,6 +56,60 @@ CStreamer::~CStreamer()
     close(m_RtcpSocket);
 };
 
+
+void CStreamer::SendRtpPacket(const char * data, int dataLength, bool isLastFragment)
+{
+#define KRtpHeaderSize RTP_HEADER_SIZE           // size of the RTP header
+
+
+    char        RtpBuf[RTP_PACK_SIZE];
+    sockaddr_in RecvAddr;
+    int         RecvLen = sizeof(RecvAddr);
+    int         RtpPacketSize = dataLength + RTP_HEADER_SIZE;
+
+	RB_ASSERT(RtpPacketSize <= RTP_PACK_SIZE);
+
+    // get client address for UDP transport
+    getpeername(m_Client,(struct sockaddr*)&RecvAddr,(socklen_t *)&RecvLen);
+    RecvAddr.sin_family = AF_INET;
+    RecvAddr.sin_port   = htons(m_RtpClientPort);
+
+    memset(RtpBuf,0x00,sizeof(RtpBuf));
+
+    // Prepare the 12 byte RTP header
+    RtpBuf[0]  = 0x80;                               // RTP version
+    RtpBuf[1]  = 0x9a;			                     // JPEG payload (26) and marker bit
+    RtpBuf[2]  = m_SequenceNumber & 0x0FF;           // each packet is counted with a sequence counter
+    RtpBuf[3]  = m_SequenceNumber >> 8;
+    RtpBuf[4]  = (m_Timestamp & 0xFF000000) >> 24;   // each image gets a timestamp
+    RtpBuf[5]  = (m_Timestamp & 0x00FF0000) >> 16;
+    RtpBuf[6] = (m_Timestamp & 0x0000FF00) >> 8;
+    RtpBuf[7] = (m_Timestamp & 0x000000FF);
+    RtpBuf[8] = 0x13;							     // 4 byte SSRC (sychronization source identifier)
+    RtpBuf[9] = 0xf9;                               // we just an arbitrary number here to keep it simple
+    RtpBuf[10] = 0x7e;
+    RtpBuf[11] = 0x67;
+
+	if (m_SequenceNumber == 35)
+		;//dataLength = dataLength;
+	if (dataLength + 12 > RTP_PACK_SIZE)
+		;//dataLength = dataLength;
+	memcpy(&RtpBuf[12],data,dataLength);
+
+	//cout << "seq is " << m_SequenceNumber << endl;
+	//(isLastFragment ? 0x00 : 0x80);
+    m_SequenceNumber += (isLastFragment ? 1 : 0);    // prepare the packet counter for the next packet
+    m_Timestamp += (isLastFragment ? 1 : 0)*3600;                             // fixed timestamp increment for a frame rate of 25fps
+
+    if (m_TCPTransport) //
+        send(m_Client,RtpBuf,RtpPacketSize,0);
+    else                // UDP - we send just the buffer by skipping the 4 byte RTP over RTSP header
+        sendto(m_RtpSocket,&RtpBuf[0],RtpPacketSize,0,(struct sockaddr*) & RecvAddr,sizeof(RecvAddr));
+
+    //sendto(m_RtpSocket,&RtpBuf[0],RtpPacketSize,0,(SOCKADDR *) & RecvAddr,sizeof(RecvAddr));
+};
+
+/*
 void CStreamer::SendRtpPacket(char * Jpeg, int JpegLen, int Chn)
 {
 #define KRtpHeaderSize 12           // size of the RTP header
@@ -116,6 +175,9 @@ void CStreamer::SendRtpPacket(char * Jpeg, int JpegLen, int Chn)
 
 };
 
+*/
+
+
 void CStreamer::InitTransport(unsigned short aRtpPort, unsigned short aRtcpPort, bool TCP)
 {
     sockaddr_in Server;
@@ -165,6 +227,27 @@ unsigned short CStreamer::GetRtcpServerPort()
 
 void CStreamer::StreamImage(int StreamID)
 {
+
+
+
+	const char *data;
+	int size;
+	bool lastFragment;
+	static int testCount=0;
+	if (testCount == 35)
+		;//testCount = testCount;
+	data = m_ImageProcessor->GetNextFrameFragment(size, lastFragment);
+
+	if (size <= 0)
+		return;
+
+	if (size != PACK_SIZE)
+		;//size = size;
+	RB_ASSERT(size == PACK_SIZE);
+    SendRtpPacket(data, size, lastFragment);
+	testCount ++;
+
+	/*
     char  * Samples1[2] = { JpegScanDataCh1A, JpegScanDataCh1B };
     char  * Samples2[2] = { JpegScanDataCh2A, JpegScanDataCh2B };
     char ** JpegScanData;
@@ -189,5 +272,6 @@ void CStreamer::StreamImage(int StreamID)
     SendRtpPacket(JpegScanData[m_SendIdx],JpegScanDataLen, StreamID);
     m_SendIdx++;
     if (m_SendIdx > 1) m_SendIdx = 0;
+    */
 };
 

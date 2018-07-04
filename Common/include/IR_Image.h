@@ -27,6 +27,10 @@ public:
 
 };
 
-
+#define PACK_SIZE IR_Image::SIZE
+#define RTP_HEADER_SIZE 12
+#define PACK_SIZE 4096
+#define RTP_PACK_SIZE (PACK_SIZE + RTP_HEADER_SIZE)	//$0rtp_packet_size
+#define ENCODE_QUALITY 80
 
 #endif /* COMMON_INCLUDE_IR_IMAGE_H_ */

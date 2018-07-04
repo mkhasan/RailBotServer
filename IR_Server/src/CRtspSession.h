@@ -44,6 +44,7 @@ private:
     void Handle_RtspDESCRIBE();
     void Handle_RtspSETUP();
     void Handle_RtspPLAY();
+    void Handle_RtspTEARDOWN();
 
     // global session state parameters
     int            m_RtspSessionID;

@@ -8,11 +8,12 @@
 #ifndef SRC_CSTREAMER_H_
 #define SRC_CSTREAMER_H_
 
+#include "ImageProcessor.h"
 
 class CStreamer
 {
 public:
-    CStreamer(int aClient);
+	CStreamer(int aClient, ImageProcessor *aImgProcessor);
     ~CStreamer();
 
     void    InitTransport(unsigned short aRtpPort, unsigned short aRtcpPort, bool TCP);
@@ -21,8 +22,9 @@ public:
     void    StreamImage(int StreamID);
 
 private:
-    void    SendRtpPacket(char * Jpeg, int JpegLen, int Chn);
+    void    SendRtpPacket(const char * data, int dataLength, bool isLastFragment);
 
+    ImageProcessor * m_ImageProcessor;
     int  m_RtpSocket;          // RTP socket for streaming RTP packets to client
     int  m_RtcpSocket;         // RTCP socket for sending/receiving RTCP packages
 

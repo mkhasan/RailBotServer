@@ -238,6 +238,8 @@ bool CRtspSession::ParseRtspRequest(char const * aRequest, unsigned aRequestSize
     return true;
 };
 
+
+
 RTSP_CMD_TYPES CRtspSession::Handle_RtspRequest(char const * aRequest, unsigned aRequestSize)
 {
     if (ParseRtspRequest(aRequest,aRequestSize))
@@ -248,6 +250,7 @@ RTSP_CMD_TYPES CRtspSession::Handle_RtspRequest(char const * aRequest, unsigned 
             case RTSP_DESCRIBE: { Handle_RtspDESCRIBE(); break; };
             case RTSP_SETUP:    { Handle_RtspSETUP();    break; };
             case RTSP_PLAY:     { Handle_RtspPLAY();     break; };
+            case RTSP_TEARDOWN: { Handle_RtspTEARDOWN(); break; };
             default: {};
         };
     };
@@ -365,8 +368,25 @@ void CRtspSession::Handle_RtspSETUP()
     send(m_RtspClient,Response,strlen(Response),0);
 }
 
-void CRtspSession::Handle_RtspPLAY()
-{
+void CRtspSession::Handle_RtspPLAY() {
+
+	char   Response[1024];
+
+	// simulate SETUP server response
+	snprintf(Response,sizeof(Response),
+		"RTSP/1.0 200 OK\r\nCSeq: %s\r\n"
+		"%s\r\n"
+		"Range: npt=0.000-\r\n"
+		"Session: %i\r\n"
+		"RTP-Info: url=rtsp://127.0.0.1:8554/mjpeg/1/track1\r\n\r\n",
+		m_CSeq,
+		DateHeader(),
+		m_RtspSessionID);
+
+	send(m_RtspClient,Response,strlen(Response),0);
+}
+
+void CRtspSession::Handle_RtspTEARDOWN() {
     char   Response[1024];
 
     // simulate SETUP server response
