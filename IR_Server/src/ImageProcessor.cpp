@@ -86,6 +86,7 @@ const char* ImageProcessor::GetNextFrameFragment(int & size, bool& isLastFragmen
 	
 }
 
+static char data[IR_Image::SIZE];
 
 const char * ImageProcessor::GetNextFrame(int& size)
 {

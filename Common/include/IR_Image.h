@@ -21,7 +21,7 @@ class IR_Image
 
 public:
 
-	static const int SIZE = 204800;
+	static const int SIZE = 180000;
 
 	char data[SIZE];		// Mail Box contains a array of mail items
 
@@ -29,7 +29,7 @@ public:
 
 #define PACK_SIZE IR_Image::SIZE
 #define RTP_HEADER_SIZE 12
-#define PACK_SIZE 4096
+//#define PACK_SIZE 4096
 #define RTP_PACK_SIZE (PACK_SIZE + RTP_HEADER_SIZE)	//$0rtp_packet_size
 #define ENCODE_QUALITY 80
 

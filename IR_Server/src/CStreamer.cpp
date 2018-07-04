@@ -99,7 +99,7 @@ void CStreamer::SendRtpPacket(const char * data, int dataLength, bool isLastFrag
 	//cout << "seq is " << m_SequenceNumber << endl;
 	//(isLastFragment ? 0x00 : 0x80);
     m_SequenceNumber += (isLastFragment ? 1 : 0);    // prepare the packet counter for the next packet
-    m_Timestamp += (isLastFragment ? 1 : 0)*3600;                             // fixed timestamp increment for a frame rate of 25fps
+    m_Timestamp += (isLastFragment ? 1 : 0)*3600;    // fixed timestamp increment for a frame rate of 25fps
 
     if (m_TCPTransport) //
         send(m_Client,RtpBuf,RtpPacketSize,0);
