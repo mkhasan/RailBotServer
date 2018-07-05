@@ -237,16 +237,23 @@ void CStreamer::StreamImage(int StreamID)
 	static int testCount=0;
 	if (testCount == 35)
 		;//testCount = testCount;
-	data = m_ImageProcessor->GetNextFrameFragment(size, lastFragment);
 
-	if (size <= 0)
-		return;
+	unsigned short width, height;
+	unsigned char pixelWidth;
 
-	if (size != PACK_SIZE)
-		;//size = size;
-	RB_ASSERT(size == PACK_SIZE);
-    SendRtpPacket(data, size, lastFragment);
-	testCount ++;
+	do {
+	data = m_ImageProcessor->GetNextFrameFragment(size, lastFragment, width, height, pixelWidth);
+
+		if (size <= 0)
+			return;
+
+		if (size != PACK_SIZE)
+			;//size = size;
+		RB_ASSERT(size == PACK_SIZE);
+		SendRtpPacket(data, size, lastFragment, width, height, pixelWidth);
+		testCount ++;
+		usleep(2000);
+	} while(lastFragment == 0);
 
 	/*
     char  * Samples1[2] = { JpegScanDataCh1A, JpegScanDataCh1B };

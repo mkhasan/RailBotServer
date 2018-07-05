@@ -24,8 +24,10 @@ public:
 	static const int SIZE = 204800;
 
 	char data[SIZE];		// Mail Box contains a array of mail items
-	int width;
-	int height;
+	unsigned short width;
+	unsigned short height;
+	unsigned char pixelSize;
+
 
 };
 

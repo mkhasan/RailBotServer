@@ -16,12 +16,12 @@ class ImageProcessor
 
 public:
 	ImageProcessor(const std::string& fileName="");
-	const char * GetNextFrameFragment(int& size, bool& isLastFragment);
+	const char * GetNextFrameFragment(int& size, bool& isLastFragment, unsigned short & width, unsigned short & height, unsigned char & pixelSize);
 	
 
 
 private:
-	virtual const char * GetNextFrame(int& size);
+	virtual const char * GetNextFrame(int& size, unsigned short & width, unsigned short & height, unsigned char & pixelSize);
 
 	bool getNewImage;
 	unsigned int fragmentIndex;

@@ -7,6 +7,9 @@
 using namespace std;
 
 
+extern ACE_SV_Semaphore_Complex mutex;
+extern IR_Image *pImage;
+
 ImageProcessor::ImageProcessor(const std::string& fileName)
 	: getNewImage(true)
 	, fragmentIndex(0)
@@ -25,15 +28,18 @@ ImageProcessor::ImageProcessor(const std::string& fileName)
 }
 
 
-const char* ImageProcessor::GetNextFrameFragment(int & size, bool& isLastFragment )
+const char* ImageProcessor::GetNextFrameFragment(int& size, bool& isLastFragment, unsigned short & width, unsigned short & height, unsigned char & pixelSize)
 {
 
 	const char* buf;
 	static int testCount=0;
+	static unsigned char _pixelSize=0;
+	static unsigned short _width=0, _height=0;
+
 	
 	if (getNewImage)
 	{
-		imageData = GetNextFrame(imageSize);
+		imageData = GetNextFrame(imageSize, _width, _height, _pixelSize);
 		fragmentIndex = 0;
 		
 		if (imageSize == -1)
@@ -55,6 +61,9 @@ const char* ImageProcessor::GetNextFrameFragment(int & size, bool& isLastFragmen
 		getNewImage = isLastFragment = false;
 		fragmentIndex++;
 		size = PACK_SIZE;
+		width = _width;
+		height = _height;
+		pixelSize = _pixelSize;
 		return imageData;
 	}
 
@@ -63,7 +72,11 @@ const char* ImageProcessor::GetNextFrameFragment(int & size, bool& isLastFragmen
 		size = -1;
 		return NULL;
 	}
-	
+
+	width = _width;
+	height = _height;
+	pixelSize = _pixelSize;
+
 	//assert(fragmentIndex*PACK_SIZE < imageSize);
 	if (fragmentIndex*PACK_SIZE >= imageSize)
 		;//testCount = testCount;
@@ -86,10 +99,36 @@ const char* ImageProcessor::GetNextFrameFragment(int & size, bool& isLastFragmen
 	
 }
 
-static char data[IR_Image::SIZE];
 
-const char * ImageProcessor::GetNextFrame(int& size)
+
+const char * ImageProcessor::GetNextFrame(int& size, unsigned short & width, unsigned short & height, unsigned char & pixelSize)
 {
+	static char data[IR_Image::SIZE];
+	size = 0;
+
+	if (mutex.acquire () == -1) {
+		RB_ERROR(("ImageProcessor::GetNextFrame: Error in acquiring mutex\n"), -1);
+		exit(-1);
+	}
+
+	if(pImage) {
+		size = pImage->width*pImage->height*pImage->pixelSize;
+		RB_ASSERT(size <= sizeof(data));
+		memcpy(data, pImage->data, size);
+		width = pImage->width;
+		height = pImage->height;
+		pixelSize = pImage->pixelSize;
+
+	}
+
+	if (mutex.release () == -1) {
+		RB_ERROR(("ImageProcessor::GetNextFrame: Error in releasing mutex\n"), -1);
+		exit(-1);
+	}
+
+	return data;
+
+
 	/*
 	const char * buf;
 	Mat frame, resizedFrame;
