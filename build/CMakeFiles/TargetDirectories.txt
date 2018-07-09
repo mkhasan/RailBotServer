@@ -1,0 +1,11 @@
+/home/usrc/RailBotServer/build/CMakeFiles/rebuild_cache.dir
+/home/usrc/RailBotServer/build/CMakeFiles/edit_cache.dir
+/home/usrc/RailBotServer/build/IR_Server/CMakeFiles/rebuild_cache.dir
+/home/usrc/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir
+/home/usrc/RailBotServer/build/IR_Server/CMakeFiles/edit_cache.dir
+/home/usrc/RailBotServer/build/IR_Handler/CMakeFiles/rebuild_cache.dir
+/home/usrc/RailBotServer/build/IR_Handler/CMakeFiles/IR_Handler.dir
+/home/usrc/RailBotServer/build/IR_Handler/CMakeFiles/edit_cache.dir
+/home/usrc/RailBotServer/build/CompressionTest/CMakeFiles/rebuild_cache.dir
+/home/usrc/RailBotServer/build/CompressionTest/CMakeFiles/CompressionTest.dir
+/home/usrc/RailBotServer/build/CompressionTest/CMakeFiles/edit_cache.dir

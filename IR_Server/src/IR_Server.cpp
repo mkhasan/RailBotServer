@@ -23,6 +23,7 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include <sys/time.h>
+#include <signal.h>
 
 
 
@@ -47,18 +48,31 @@ const int port = 8555;
 
 
 ACE_SV_Semaphore_Complex mutex;
+ACE_SV_Semaphore_Complex synch;
+
+int MasterSocket;
 
 IR_Image *pImage = NULL;
+
+static bool quit = false;
+
+void CatchSignal(int sig);
 
 int main(int argc , char *argv[])
 {
     int c;
-    int MasterSocket;
+
     int ClientSocket;
 
     int *new_sock;
 
     struct sockaddr_in ServerAddr , ClientAddr;
+
+	signal(SIGTERM, CatchSignal);
+	signal(SIGINT, CatchSignal);		// caught in a different way for testing
+	signal(SIGHUP, CatchSignal);
+	signal(SIGKILL, CatchSignal);
+	signal(SIGTSTP, CatchSignal);
 
     //Create socket
     gettimeofday(&start_time, NULL);
@@ -70,7 +84,7 @@ int main(int argc , char *argv[])
 		RB_ERROR_RETURN(("IR_Server: Error in getting mutex \n"), -1);
 
 
-	ACE_SV_Semaphore_Complex synch;
+
 	if(synch.open (SEM_KEY_2,
 						  ACE_SV_Semaphore_Complex::ACE_CREATE,
 						  1) == -1)
@@ -139,8 +153,11 @@ int main(int argc , char *argv[])
     pthread_mutex_init(&lock, NULL);
     pthread_cond_init(&cond, NULL);
 
-    while( (ClientSocket = accept(MasterSocket, (struct sockaddr *)&ClientAddr, (socklen_t*)&c)) )
+
+    while(quit == false)
 	{
+    	ClientSocket = accept(MasterSocket, (struct sockaddr *)&ClientAddr, (socklen_t*)&c);
+
 		puts("Connection accepted");
 
 		pthread_t sniffer_thread;
@@ -202,7 +219,7 @@ void *SessionThreadHandler(void *socket_desc)
 
     const unsigned long intervalUs = 40000;
 
-    while(!data.Stop) {
+    while(!data.Stop && quit == false) {
     	if(data.StreamingStarted)
     		Streamer.StreamImage(RtspSession.GetStreamID());
 
@@ -238,7 +255,7 @@ void *RtspRequestHandler(void *userData)
 
 	 *
 	 */
-	while(!pData->Stop) {
+	while(!pData->Stop && quit == false) {
 		if(IsReqReady(pData->Client)) {
 					            //written = pBuffer->Receive(sockfd);
 
@@ -302,5 +319,24 @@ bool IsReqReady(int sockfd)
 
 
     return res;
+
+}
+
+void CatchSignal(int sig)
+{
+
+
+
+	RB_DEBUG("Signal %d caught \n", sig);
+
+	quit = true;
+
+    close(MasterSocket);
+
+    if (synch.release () == -1)
+    	RB_ERROR_RETURN(("CatchSignal: Error in releasing synch\n"), );
+
+    exit(1);
+
 
 }
