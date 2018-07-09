@@ -158,7 +158,7 @@ const RGB_T iron[128] =  {
 
 
 #define SKI_DEFAULT_SEM_KEY ACE_DEFAULT_SEM_KEY
-#define BASE 3
+#define BASE 1
 
 
 #define SEM_KEY_1 (SKI_DEFAULT_SEM_KEY+10*BASE+1)

@@ -6,13 +6,17 @@
 
 #include "IR_Image.h"
 
+
 #include <string>
 #include <fstream>
 
 
 
+
+
 class ImageProcessor
 {
+
 
 public:
 	ImageProcessor(const std::string& fileName="");

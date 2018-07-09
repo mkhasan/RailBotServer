@@ -17,6 +17,9 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../Common/include"
   "/home/usrc/ACE_wrappers"
+  "/home/usrc/lzham_codec-master/lzhamdecomp"
+  "/home/usrc/lzham_codec-master/lzhamcomp"
+  "/home/usrc/lzham_codec-master/include"
   )
 
 # Targets to which this target links.

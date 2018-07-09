@@ -607,6 +607,8 @@ IR_Server/CMakeFiles/IR_Server.dir/src/ImageProcessor.cpp.o
  /home/usrc/ACE_wrappers/ace/streams.h
  /home/usrc/RailBotServer/IR_Server/src/ImageProcessor.cpp
  /home/usrc/RailBotServer/IR_Server/src/ImageProcessor.h
+ /home/usrc/lzham_codec-master/include/lzham.h
+ /home/usrc/lzham_codec-master/include/lzham_static_lib.h
 IR_Server/CMakeFiles/IR_Server.dir/src/JPEGSamples.cpp.o
  /home/usrc/RailBotServer/IR_Server/src/JPEGSamples.cpp
  /home/usrc/RailBotServer/IR_Server/src/JPEGSamples.h

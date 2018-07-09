@@ -191,6 +191,9 @@ int DecodeFrame(struct Viewer * pViewer)
                 	RB_ERROR_RETURN(("DecodeFrame: Insufficient space \n "), 0);
 
                 mutex.acquire();
+                pImage->width = pViewer->cx;
+                pImage->height = pViewer->cy;
+                pImage->pixelSize = sizeof(WORD);
                 for (int i=0; i<pViewer->cx*pViewer->cy*sizeof(WORD); i++)
                 	pImage->data[i] = ptr[i];
                 mutex.release();

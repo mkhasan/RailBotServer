@@ -43,8 +43,8 @@ struct RtspReqData{
 
 };
 
-
-const int port = 8555;
+void Test();
+const int port = 8557;
 
 
 ACE_SV_Semaphore_Complex mutex;
@@ -74,6 +74,7 @@ int main(int argc , char *argv[])
 	signal(SIGKILL, CatchSignal);
 	signal(SIGTSTP, CatchSignal);
 
+	Test();
     //Create socket
     gettimeofday(&start_time, NULL);
 

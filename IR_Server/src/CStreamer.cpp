@@ -74,6 +74,8 @@ void CStreamer::SendRtpPacket(const char * data, int dataLength, bool isLastFrag
     RecvAddr.sin_family = AF_INET;
     RecvAddr.sin_port   = htons(m_RtpClientPort);
 
+
+
     memset(RtpBuf,0x00,sizeof(RtpBuf));
 
     // Prepare the 12 byte RTP header
@@ -103,11 +105,13 @@ void CStreamer::SendRtpPacket(const char * data, int dataLength, bool isLastFrag
     m_Timestamp += (isLastFragment ? 1 : 0)*3600;    // fixed timestamp increment for a frame rate of 25fps
 
     if (m_TCPTransport) //
-        send(m_Client,RtpBuf,RtpPacketSize,0);
+        RB_ASSERT(0); //send(m_Client,RtpBuf,RtpPacketSize,0);
     else                // UDP - we send just the buffer by skipping the 4 byte RTP over RTSP header
         sendto(m_RtpSocket,&RtpBuf[0],RtpPacketSize,0,(struct sockaddr*) & RecvAddr,sizeof(RecvAddr));
 
     //sendto(m_RtpSocket,&RtpBuf[0],RtpPacketSize,0,(SOCKADDR *) & RecvAddr,sizeof(RecvAddr));
+
+    RB_DEBUG("client port is %d size is %d\n", m_RtpClientPort, RtpPacketSize);
 };
 
 /*
@@ -241,15 +245,18 @@ void CStreamer::StreamImage(int StreamID)
 	unsigned short width, height;
 	unsigned char pixelWidth;
 
+	//RB_DEBUG("Getting packet \n");
 	do {
-	data = m_ImageProcessor->GetNextFrameFragment(size, lastFragment, width, height, pixelWidth);
+		data = m_ImageProcessor->GetNextFrameFragment(size, lastFragment, width, height, pixelWidth);
 
 		if (size <= 0)
 			return;
 
 		if (size != PACK_SIZE)
-			;//size = size;
-		RB_ASSERT(size == PACK_SIZE);
+			;
+		RB_ASSERT(size <= PACK_SIZE);
+
+		//RB_DEBUG("Sending \n");
 		SendRtpPacket(data, size, lastFragment, width, height, pixelWidth);
 		testCount ++;
 		usleep(2000);
