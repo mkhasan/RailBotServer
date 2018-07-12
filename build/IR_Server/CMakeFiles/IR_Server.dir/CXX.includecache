@@ -21,6 +21,8 @@ ace/Shared_Memory_SV.h
 ../Common/include/ace/Shared_Memory_SV.h
 
 ../Utils/src/utils.h
+lzham_static_lib.h
+../Utils/src/lzham_static_lib.h
 
 /home/usrc/ACE_wrappers/ace/ACE_export.h
 
@@ -1143,4 +1145,12 @@ JPEGSamples.h
 /home/usrc/RailBotServer/IR_Server/src/JPEGSamples.h
 
 /home/usrc/RailBotServer/IR_Server/src/JPEGSamples.h
+
+/home/usrc/lzham_codec-master/include/lzham.h
+stdlib.h
+-
+
+/home/usrc/lzham_codec-master/include/lzham_static_lib.h
+lzham.h
+/home/usrc/lzham_codec-master/include/lzham.h
 

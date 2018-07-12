@@ -458,6 +458,8 @@ IR_Server/CMakeFiles/IR_Server.dir/src/IR_Server.cpp.o: ../IR_Server/src/CRtspSe
 IR_Server/CMakeFiles/IR_Server.dir/src/IR_Server.cpp.o: ../IR_Server/src/CStreamer.h
 IR_Server/CMakeFiles/IR_Server.dir/src/IR_Server.cpp.o: ../IR_Server/src/IR_Server.cpp
 IR_Server/CMakeFiles/IR_Server.dir/src/IR_Server.cpp.o: ../IR_Server/src/ImageProcessor.h
+IR_Server/CMakeFiles/IR_Server.dir/src/IR_Server.cpp.o: /home/usrc/lzham_codec-master/include/lzham.h
+IR_Server/CMakeFiles/IR_Server.dir/src/IR_Server.cpp.o: /home/usrc/lzham_codec-master/include/lzham_static_lib.h
 
 IR_Server/CMakeFiles/IR_Server.dir/src/ImageProcessor.cpp.o: ../Common/include/Def.h
 IR_Server/CMakeFiles/IR_Server.dir/src/ImageProcessor.cpp.o: ../Common/include/IR_Image.h

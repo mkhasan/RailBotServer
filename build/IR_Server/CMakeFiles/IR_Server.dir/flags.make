@@ -6,5 +6,5 @@ CXX_FLAGS =  -ggdb -Wall -std=c++0x -Wno-narrowing -w
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/usrc/RailBotServer/Common/include -I/home/usrc/RailBotServer/Utils/src -I/home/usrc/ACE_wrappers 
+CXX_INCLUDES = -I/home/usrc/RailBotServer/Common/include -I/home/usrc/RailBotServer/Utils/src -I/home/usrc/ACE_wrappers -I/home/usrc/lzham_codec-master/include 
 

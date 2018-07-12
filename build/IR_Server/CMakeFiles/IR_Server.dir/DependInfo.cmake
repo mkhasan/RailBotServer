@@ -18,6 +18,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../Common/include"
   "../Utils/src"
   "/home/usrc/ACE_wrappers"
+  "/home/usrc/lzham_codec-master/include"
   )
 
 # Targets to which this target links.

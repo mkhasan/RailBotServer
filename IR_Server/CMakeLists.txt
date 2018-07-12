@@ -16,6 +16,10 @@ set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -Wall -Wextra")
 include_directories(${PROJECT_SOURCE_DIR}/Common/include ${PROJECT_SOURCE_DIR}/Utils/src)
 include_directories($ENV{ACE_ROOT})
 
+include_directories(
+	$ENV{LZHAM_DIR}/include)
+
+
 link_directories($ENV{ACE_ROOT}/lib)
 link_directories($ENV{LZHAM_DIR}/build/lzhamdll)
 

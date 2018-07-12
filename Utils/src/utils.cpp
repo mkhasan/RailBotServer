@@ -13,20 +13,6 @@
 #include <stdio.h>
 #include <memory.h>
 
-#define my_max(a,b) (((a) > (b)) ? (a) : (b))
-#define my_min(a,b) (((a) < (b)) ? (a) : (b))
-
-
-
-#define Sleep(ms) usleep(ms*1000)
-#define _aligned_malloc(size, alignment) memalign(alignment, size)
-#define _aligned_free free
-#define fopen fopen64
-#define _fseeki64 fseeko64
-#define _ftelli64 ftello64
-
-
-#include "lzham_static_lib.h"
 
 
 #ifdef _DEBUG
@@ -125,20 +111,6 @@ using namespace RB_ROBOT_UTILS;
 
 Squeezer::Squeezer() {
 
-
-}
-
-Squeezer::~Squeezer() {
-
-}
-
-Squeezer * Squeezer::Instance() {
-	static Squeezer squeezer;
-	return &squeezer;
-}
-
-void Squeezer::Test() {
-
 #ifdef LZHAM_64BIT
    printf("LZHAM Codec - x64 Command Line Test App - Compiled %s %s\n", __DATE__, __TIME__);
 #else
@@ -148,11 +120,12 @@ void Squeezer::Test() {
    //printf("Expecting LZHAM DLL Version 0x%04X\n", LZHAM_DLL_VERSION);
 
 #if LZHAM_STATIC_LIB
-   lzham_static_lib lzham_lib;
+
    lzham_lib.load();
    printf("Using static libraries.\n");
+
 #else
-   lzham_dll_loader lzham_lib;
+
    char lzham_dll_filename[MAX_PATH];
    lzham_dll_loader::create_module_path(lzham_dll_filename, MAX_PATH, g_is_debug);
    printf("Dynamically loading DLL \"%s\"\n", lzham_dll_filename);
@@ -163,7 +136,25 @@ void Squeezer::Test() {
       print_error("Failed loading LZHAM DLL (Status=0x%04X)!\n", (uint)hres);
       return EXIT_FAILURE;
    }
+
+
 #endif
+
+
+}
+
+Squeezer::~Squeezer() {
+	lzham_lib.unload();
+
+}
+
+Squeezer * Squeezer::Instance() {
+	static Squeezer squeezer;
+	return &squeezer;
+}
+
+void Squeezer::Test() {
+
 	lzham_compress_params comp_params;
 	int num_helper_threads = -1;
 
@@ -220,9 +211,98 @@ void Squeezer::Test() {
 
 }
 
+int Squeezer::Compress(char *dest, int & destLength, const char *src, int srcLength) {
 
-/*
-int Squeezer::Compress(char *src, char *dest) {
+	lzham_compress_params comp_params;
+	int num_helper_threads = -1;
+
+	comp_options options;
+	options.m_max_helper_threads = num_helper_threads;
+
+
+	memset(&comp_params, 0, sizeof(comp_params));
+	comp_params.m_struct_size = sizeof(comp_params);
+	comp_params.m_dict_size_log2 = options.m_dict_size_log2;
+	comp_params.m_level = options.m_comp_level;
+	comp_params.m_max_helper_threads = 1;
+
+	lzham_uint8 cmp_buf[1024];
+	size_t cmp_len = sizeof(cmp_buf);
+
+//	const char *p = "This is a test.This is a test.This is a test.1234567This is a test.This is a test.123456";
+//	size_t uncomp_len = strlen(p);
+
+	lzham_uint32 comp_adler32 = 0;
+	lzham_compress_status_t comp_status = lzham_lib.lzham_compress_memory(&comp_params, (lzham_uint8 *)dest, (size_t *)&destLength, (const lzham_uint8 *)src, srcLength, &comp_adler32);
+	if (comp_status != LZHAM_COMP_STATUS_SUCCESS)
+	{
+	  print_error("Compression test failed with status %i!\n", comp_status);
+	  return -1;
+	}
+
+	printf("Uncompressed size: %u\nCompressed size: %u\n", (uint)srcLength, (uint)destLength);
+
+	return 0;
+
+	/*
+	lzham_decompress_params decomp_params;
+	memset(&decomp_params, 0, sizeof(decomp_params));
+	decomp_params.m_struct_size = sizeof(decomp_params);
+	decomp_params.m_dict_size_log2 = options.m_dict_size_log2;
+	if (options.m_compute_adler32_during_decomp)
+	  decomp_params.m_decompress_flags |= LZHAM_DECOMP_FLAG_COMPUTE_ADLER32;
+
+	lzham_uint8 decomp_buf[1024];
+	size_t decomp_size = sizeof(decomp_buf);
+	lzham_uint32 decomp_adler32 = 0;
+	lzham_decompress_status_t decomp_status = lzham_lib.lzham_decompress_memory(&decomp_params, decomp_buf, &decomp_size, cmp_buf, cmp_len, &decomp_adler32);
+	if (decomp_status != LZHAM_DECOMP_STATUS_SUCCESS)
+	{
+	  print_error("Compression test failed with status %i!\n", decomp_status);
+	  return ;
+	}
+
+	if ((comp_adler32 != decomp_adler32) || (decomp_size != uncomp_len) || (memcmp(decomp_buf, p, uncomp_len)))
+	{
+	  print_error("Compression test failed!\n");
+	  return ;
+	}
+
+	printf("Compression test succeeded.\n");
+	*/
+
 
 }
-*/
+
+int Squeezer::DeCompress(char *dest, int & destLength, const char *src, int srcLength) {
+	lzham_compress_params comp_params;
+	int num_helper_threads = -1;
+
+	comp_options options;
+	options.m_max_helper_threads = num_helper_threads;
+
+	lzham_decompress_params decomp_params;
+	memset(&decomp_params, 0, sizeof(decomp_params));
+	decomp_params.m_struct_size = sizeof(decomp_params);
+	decomp_params.m_dict_size_log2 = options.m_dict_size_log2;
+	if (options.m_compute_adler32_during_decomp)
+	  decomp_params.m_decompress_flags |= LZHAM_DECOMP_FLAG_COMPUTE_ADLER32;
+
+	lzham_uint8 decomp_buf[1024];
+	size_t decomp_size = sizeof(decomp_buf);
+	lzham_uint32 decomp_adler32 = 0;
+	lzham_decompress_status_t decomp_status = lzham_lib.lzham_decompress_memory(&decomp_params, (lzham_uint8 *)dest, (size_t *)&destLength, (const lzham_uint8 *)src, srcLength, &decomp_adler32);
+	if (decomp_status != LZHAM_DECOMP_STATUS_SUCCESS)
+	{
+	  print_error("Compression test failed with status %i!\n", decomp_status);
+	  return -1;
+	}
+
+
+	printf("Compression test succeeded.\n");
+
+	return 0;
+
+
+
+}
