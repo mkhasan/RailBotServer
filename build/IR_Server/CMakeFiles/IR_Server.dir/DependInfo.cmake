@@ -16,14 +16,13 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../Common/include"
+  "../Utils/src"
   "/home/usrc/ACE_wrappers"
-  "/home/usrc/lzham_codec-master/lzhamdecomp"
-  "/home/usrc/lzham_codec-master/lzhamcomp"
-  "/home/usrc/lzham_codec-master/include"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/usrc/RailBotServer/build/Utils/CMakeFiles/RbUtils.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

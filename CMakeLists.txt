@@ -6,7 +6,8 @@ PROJECT (RAIL_ROBOT_SERVER)
 
 set (COMMON_SRC "${PROJECT_SOURCE_DIR}/Common/src/time.cpp")
 
-add_subdirectory(./IR_Server)
-add_subdirectory(./IR_Handler)
-add_subdirectory(./CompressionTest)
+add_subdirectory(Utils)
+add_subdirectory(IR_Server)
+add_subdirectory(IR_Handler)
+add_subdirectory(CompressionTest)
  

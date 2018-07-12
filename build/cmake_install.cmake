@@ -34,6 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
+  include("/home/usrc/RailBotServer/build/Utils/cmake_install.cmake")
   include("/home/usrc/RailBotServer/build/IR_Server/cmake_install.cmake")
   include("/home/usrc/RailBotServer/build/IR_Handler/cmake_install.cmake")
   include("/home/usrc/RailBotServer/build/CompressionTest/cmake_install.cmake")

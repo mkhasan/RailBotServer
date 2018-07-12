@@ -220,6 +220,7 @@ IR_Server_EXTERNAL_OBJECTS =
 ../bin/IR_Server: IR_Server/CMakeFiles/IR_Server.dir/src/ImageProcessor.cpp.o
 ../bin/IR_Server: IR_Server/CMakeFiles/IR_Server.dir/__/Common/src/time.cpp.o
 ../bin/IR_Server: IR_Server/CMakeFiles/IR_Server.dir/build.make
+../bin/IR_Server: ../lib/libRbUtils.a
 ../bin/IR_Server: IR_Server/CMakeFiles/IR_Server.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/usrc/RailBotServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable ../../bin/IR_Server"
 	cd /home/usrc/RailBotServer/build/IR_Server && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/IR_Server.dir/link.txt --verbose=$(VERBOSE)

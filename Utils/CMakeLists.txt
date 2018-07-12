@@ -55,7 +55,7 @@ include_directories(
 	$ENV{LZHAM_DIR}/include)
 	
 	
-add_library(${TARGET} utils.cpp)
+add_library(${TARGET} src/utils.cpp)
 
 link_directories($ENV{LZHAM_DIR}/build/lzhamdll)
 

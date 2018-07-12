@@ -18,11 +18,14 @@ private:
 
 	Squeezer(Squeezer & copy);
 
+	Squeezer operator=(Squeezer & copy);
+
 public:
 	int Compress(char *dest, const char *src);
 	int DeCompress(char *dest, const char *src);
 
 	static Squeezer * Instance();
+	void Test();
 };
 
 

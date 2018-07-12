@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/usrc/RailBotServer/Utils/src/utils.h
+
+/home/usrc/RailBotServer/Utils/src/utils_test.cpp
+utils.h
+/home/usrc/RailBotServer/Utils/src/utils.h
+

@@ -9,6 +9,8 @@
 #include "CStreamer.h"
 #include "CRtspSession.h"
 
+#include "utils.h"
+
 #include <stdio.h>
 #include <string.h>    //strlen
 #include <stdlib.h>    //strlen
@@ -26,7 +28,7 @@
 #include <signal.h>
 
 
-
+using namespace RB_ROBOT_UTILS;
 
 pthread_mutex_t lock;
 pthread_cond_t cond;
@@ -74,7 +76,9 @@ int main(int argc , char *argv[])
 	signal(SIGKILL, CatchSignal);
 	signal(SIGTSTP, CatchSignal);
 
-	Test();
+	Squeezer *p = Squeezer::Instance();
+	p->Test();
+
     //Create socket
     gettimeofday(&start_time, NULL);
 
