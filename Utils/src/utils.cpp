@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <memory.h>
+#include <string.h>
 
 
 
@@ -134,7 +135,7 @@ Squeezer::Squeezer() {
    if (FAILED(hres))
    {
       print_error("Failed loading LZHAM DLL (Status=0x%04X)!\n", (uint)hres);
-      return EXIT_FAILURE;
+	  return; // EXIT_FAILURE;
    }
 
 

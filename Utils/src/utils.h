@@ -13,17 +13,25 @@
 #define my_min(a,b) (((a) < (b)) ? (a) : (b))
 
 
+#if defined(WIN32)
+	#define WIN32_LEAN_AND_MEAN
+	#include <windows.h>
+	#define LZHAM_USE_LZHAM_DLL 1
+#else 
+	#define Sleep(ms) usleep(ms*1000)
+	#define _aligned_malloc(size, alignment) memalign(alignment, size)
+	#define _aligned_free free
+	#define fopen fopen64
+	#define _fseeki64 fseeko64
+	#define _ftelli64 ftello64
+#endif
 
-#define Sleep(ms) usleep(ms*1000)
-#define _aligned_malloc(size, alignment) memalign(alignment, size)
-#define _aligned_free free
-#define fopen fopen64
-#define _fseeki64 fseeko64
-#define _ftelli64 ftello64
 
-
+#if LZHAM_USE_LZHAM_DLL
+#include "lzham_dynamic_lib.h"
+#else
 #include "lzham_static_lib.h"
-
+#endif
 
 namespace RB_ROBOT_UTILS {
 
