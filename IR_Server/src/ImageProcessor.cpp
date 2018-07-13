@@ -2,8 +2,7 @@
 
 
 #include "ImageProcessor.h"
-
-
+#include "utils.h"
 
 using namespace std;
 
@@ -12,6 +11,7 @@ using namespace std;
 extern ACE_SV_Semaphore_Complex mutex;
 extern IR_Image *pImage;
 
+using namespace RB_ROBOT_UTILS;
 
 ImageProcessor::ImageProcessor(const std::string& fileName)
 	: getNewImage(true)
@@ -28,6 +28,12 @@ ImageProcessor::ImageProcessor(const std::string& fileName)
 
 	}
 
+
+	Squeezer *p = Squeezer::Instance();
+
+
+	int ret = p->Initialize();
+	RB_ASSERT(ret == 0);
 
 
 
@@ -110,6 +116,9 @@ const char* ImageProcessor::GetNextFrameFragment(int& size, bool& isLastFragment
 const char * ImageProcessor::GetNextFrame(int& size, unsigned short & width, unsigned short & height, unsigned char & pixelSize)
 {
 	static char data[IR_Image::SIZE];
+	static char compData[IR_Image::SIZE];
+	size_t compSize = sizeof(compData);
+	size_t uncompSize;
 	size = 0;
 
 	if (mutex.acquire () == -1) {
@@ -136,7 +145,23 @@ const char * ImageProcessor::GetNextFrame(int& size, unsigned short & width, uns
 		exit(-1);
 	}
 
-	return data;
+	if(size > 0) {
+		uncompSize = size;
+
+		Squeezer *p = Squeezer::Instance();
+		int ret = p->Compress((lzham_uint8 *)compData, &compSize, (const lzham_uint8 *)data, uncompSize);
+
+		RB_ASSERT(ret == 0);
+
+		size = compSize;
+
+		return compData;
+
+	}
+
+	//int ret = p->Compress((lzham_uint8 *)dest, &destLength, (const lzham_uint8 *)str, length);
+
+	return NULL;
 
 
 	/*

@@ -35,7 +35,7 @@ using std::endl;
 
 
 
-const char * hostIP = "143.248.204.35";
+const char * hostIP = "192.168.0.100";
 
 static void CatchSignal(int sig);
 

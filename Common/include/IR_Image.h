@@ -31,7 +31,7 @@ public:
 
 };
 
-#define PACK_SIZE 32768
+#define PACK_SIZE 60000
 #define RTP_HEADER_SIZE 12
 //#define PACK_SIZE 4096
 #define RTP_PACK_SIZE (PACK_SIZE + RTP_HEADER_SIZE)	//$0rtp_packet_size

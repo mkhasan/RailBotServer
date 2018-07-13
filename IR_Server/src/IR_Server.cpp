@@ -46,7 +46,7 @@ struct RtspReqData{
 };
 
 void Test();
-const int port = 8557;
+const int port = 8554;
 
 
 ACE_SV_Semaphore_Complex mutex;
@@ -76,8 +76,6 @@ int main(int argc , char *argv[])
 	signal(SIGKILL, CatchSignal);
 	signal(SIGTSTP, CatchSignal);
 
-	Squeezer *p = Squeezer::Instance();
-	p->Test();
 
     //Create socket
     gettimeofday(&start_time, NULL);

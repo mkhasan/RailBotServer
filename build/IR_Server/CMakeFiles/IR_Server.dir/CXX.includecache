@@ -1135,6 +1135,8 @@ signal.h
 /home/usrc/RailBotServer/IR_Server/src/ImageProcessor.cpp
 ImageProcessor.h
 /home/usrc/RailBotServer/IR_Server/src/ImageProcessor.h
+utils.h
+/home/usrc/RailBotServer/IR_Server/src/utils.h
 
 /home/usrc/RailBotServer/IR_Server/src/ImageProcessor.h
 IR_Image.h

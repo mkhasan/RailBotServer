@@ -10,6 +10,12 @@ typedef bool BOOL;
 typedef unsigned int DWORD;
 typedef unsigned short WORD;
 
+#define PACK_SIZE 60000
+#define RTP_HEADER_SIZE 12
+//#define PACK_SIZE 4096
+#define RTP_PACK_SIZE (PACK_SIZE + RTP_HEADER_SIZE)	//$0rtp_packet_size
+#define ENCODE_QUALITY 80
+
 #define FALSE false
 #define TRUST true
 
@@ -168,15 +174,15 @@ const RGB_T iron[128] =  {
 
 #include <sys/time.h>
 
-#define RB_DEBUG(...) \
+#define RB_DEBUG(...) { \
 	gettimeofday(&now, NULL); \
 	printf("[%Lu:%Lu] ", now.tv_sec-start_time.tv_sec, now.tv_usec); \
-	printf(__VA_ARGS__)
+	printf(__VA_ARGS__); }
 
-#define RB_ERROR(...) \
+#define RB_ERROR(...) {\
 	gettimeofday(&now, NULL); \
 	printf("[%Lu:%Lu] ", now.tv_sec-start_time.tv_sec, now.tv_usec); \
-	printf(__VA_ARGS__)
+	printf(__VA_ARGS__); }
 
 
 #define RB_DEBUG_RETURN(X, Y) {\

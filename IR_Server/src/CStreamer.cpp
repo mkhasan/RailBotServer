@@ -238,12 +238,12 @@ void CStreamer::StreamImage(int StreamID)
 	const char *data;
 	int size;
 	bool lastFragment;
-	static int testCount=0;
-	if (testCount == 35)
-		;//testCount = testCount;
+	int testCount=0;
 
 	unsigned short width, height;
 	unsigned char pixelWidth;
+
+
 
 	//RB_DEBUG("Getting packet \n");
 	do {
@@ -259,8 +259,12 @@ void CStreamer::StreamImage(int StreamID)
 		//RB_DEBUG("Sending \n");
 		SendRtpPacket(data, size, lastFragment, width, height, pixelWidth);
 		testCount ++;
+		if(lastFragment == 0)
+			break;
 		usleep(2000);
-	} while(lastFragment == 0);
+	} while(1);
+
+	RB_ASSERT(testCount <= 1);
 
 	/*
     char  * Samples1[2] = { JpegScanDataCh1A, JpegScanDataCh1B };
