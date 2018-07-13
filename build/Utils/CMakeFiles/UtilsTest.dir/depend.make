@@ -4,5 +4,7 @@
 Utils/CMakeFiles/UtilsTest.dir/src/utils_test.cpp.o: ../Utils/src/utils.h
 Utils/CMakeFiles/UtilsTest.dir/src/utils_test.cpp.o: ../Utils/src/utils_test.cpp
 Utils/CMakeFiles/UtilsTest.dir/src/utils_test.cpp.o: /home/usrc/lzham_codec-master/include/lzham.h
+Utils/CMakeFiles/UtilsTest.dir/src/utils_test.cpp.o: /home/usrc/lzham_codec-master/include/lzham_dynamic_lib.h
+Utils/CMakeFiles/UtilsTest.dir/src/utils_test.cpp.o: /home/usrc/lzham_codec-master/include/lzham_exports.inc
 Utils/CMakeFiles/UtilsTest.dir/src/utils_test.cpp.o: /home/usrc/lzham_codec-master/include/lzham_static_lib.h
 

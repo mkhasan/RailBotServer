@@ -21,6 +21,10 @@ ace/Shared_Memory_SV.h
 ../Common/include/ace/Shared_Memory_SV.h
 
 ../Utils/src/utils.h
+windows.h
+-
+lzham_dynamic_lib.h
+../Utils/src/lzham_dynamic_lib.h
 lzham_static_lib.h
 ../Utils/src/lzham_static_lib.h
 
@@ -1149,6 +1153,14 @@ JPEGSamples.h
 /home/usrc/lzham_codec-master/include/lzham.h
 stdlib.h
 -
+
+/home/usrc/lzham_codec-master/include/lzham_dynamic_lib.h
+lzham.h
+/home/usrc/lzham_codec-master/include/lzham.h
+lzham_exports.inc
+/home/usrc/lzham_codec-master/include/lzham_exports.inc
+
+/home/usrc/lzham_codec-master/include/lzham_exports.inc
 
 /home/usrc/lzham_codec-master/include/lzham_static_lib.h
 lzham.h
