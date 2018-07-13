@@ -110,7 +110,13 @@ typedef unsigned int uint32;
 
 using namespace RB_ROBOT_UTILS;
 
-Squeezer::Squeezer() {
+Squeezer::Squeezer() : isInitialized(false) {
+
+}
+
+int Squeezer::Initialize() {
+	if (isInitialized)
+		return 0;
 
 #ifdef LZHAM_64BIT
    printf("LZHAM Codec - x64 Command Line Test App - Compiled %s %s\n", __DATE__, __TIME__);
@@ -135,17 +141,27 @@ Squeezer::Squeezer() {
    if (FAILED(hres))
    {
       print_error("Failed loading LZHAM DLL (Status=0x%04X)!\n", (uint)hres);
-	  return; // EXIT_FAILURE;
+	  return this->MODULE_NOT_FOUND;
    }
 
 
 #endif
 
+   isInitialized = true;
+   return 0;
+
 
 }
 
-Squeezer::~Squeezer() {
+void Squeezer::Finalize() {
+	if (isInitialized == false)
+		return;
+
 	lzham_lib.unload();
+	isInitialized = false;
+}
+Squeezer::~Squeezer() {
+	Finalize();
 
 }
 
@@ -212,7 +228,7 @@ void Squeezer::Test() {
 
 }
 
-int Squeezer::Compress(char *dest, int & destLength, const char *src, int srcLength) {
+int Squeezer::Compress(lzham_uint8 *dest, size_t * pDestLength, const lzham_uint8 *src, size_t srcLength) {
 
 	lzham_compress_params comp_params;
 	int num_helper_threads = -1;
@@ -234,14 +250,14 @@ int Squeezer::Compress(char *dest, int & destLength, const char *src, int srcLen
 //	size_t uncomp_len = strlen(p);
 
 	lzham_uint32 comp_adler32 = 0;
-	lzham_compress_status_t comp_status = lzham_lib.lzham_compress_memory(&comp_params, (lzham_uint8 *)dest, (size_t *)&destLength, (const lzham_uint8 *)src, srcLength, &comp_adler32);
+	lzham_compress_status_t comp_status = lzham_lib.lzham_compress_memory(&comp_params, dest, pDestLength, src, srcLength, &comp_adler32);
 	if (comp_status != LZHAM_COMP_STATUS_SUCCESS)
 	{
 	  print_error("Compression test failed with status %i!\n", comp_status);
 	  return -1;
 	}
 
-	printf("Uncompressed size: %u\nCompressed size: %u\n", (uint)srcLength, (uint)destLength);
+	printf("Uncompressed size: %u\nCompressed size: %u\n", (uint)srcLength, (uint)*pDestLength);
 
 	return 0;
 
@@ -275,7 +291,7 @@ int Squeezer::Compress(char *dest, int & destLength, const char *src, int srcLen
 
 }
 
-int Squeezer::DeCompress(char *dest, int & destLength, const char *src, int srcLength) {
+int Squeezer::DeCompress(lzham_uint8 *dest, size_t * pDestLength, const lzham_uint8 *src, size_t srcLength) {
 	lzham_compress_params comp_params;
 	int num_helper_threads = -1;
 
@@ -292,7 +308,7 @@ int Squeezer::DeCompress(char *dest, int & destLength, const char *src, int srcL
 	lzham_uint8 decomp_buf[1024];
 	size_t decomp_size = sizeof(decomp_buf);
 	lzham_uint32 decomp_adler32 = 0;
-	lzham_decompress_status_t decomp_status = lzham_lib.lzham_decompress_memory(&decomp_params, (lzham_uint8 *)dest, (size_t *)&destLength, (const lzham_uint8 *)src, srcLength, &decomp_adler32);
+	lzham_decompress_status_t decomp_status = lzham_lib.lzham_decompress_memory(&decomp_params, dest, pDestLength, src, srcLength, &decomp_adler32);
 	if (decomp_status != LZHAM_DECOMP_STATUS_SUCCESS)
 	{
 	  print_error("Compression test failed with status %i!\n", decomp_status);

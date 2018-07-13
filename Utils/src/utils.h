@@ -46,17 +46,31 @@ private:
    lzham_dll_loader lzham_lib;
 #endif
 
+public:
+	const int LZHAM_ERROR = -1;
+	const int NOT_INSTIALIZED = -2;
+	const int MODULE_NOT_FOUND = -3;
+	const int SUCCESS = 0;
+private:
+	bool isInitialized;
 
 	Squeezer();
 	~Squeezer();
+
+
 
 	Squeezer(Squeezer & copy);
 
 	Squeezer operator=(Squeezer & copy);
 
 public:
-	int Compress(char *dest, int & destLength, const char *src, int srcLength);
-	int DeCompress(char *dest, int & destLength, const char *src, int srcLength);
+
+
+	int Initialize();
+	void Finalize();
+
+	int Compress(lzham_uint8 *dest, size_t * pDestLength, const lzham_uint8 *src, size_t srcLength);
+	int DeCompress(lzham_uint8 *dest, size_t * pDestLength, const lzham_uint8 *src, size_t srcLength);
 
 	static Squeezer * Instance();
 	void Test();
