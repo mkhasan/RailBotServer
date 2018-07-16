@@ -5,14 +5,15 @@
 #ifndef ROBOTCONTROL_DEF_H
 #define ROBOTCONTROL_DEF_H
 
+#ifndef WIN32 
 typedef unsigned char BYTE;
 typedef bool BOOL;
 typedef unsigned int DWORD;
 typedef unsigned short WORD;
+#endif 
 
 #define PACK_SIZE 60000
 #define RTP_HEADER_SIZE 12
-//#define PACK_SIZE 4096
 #define RTP_PACK_SIZE (PACK_SIZE + RTP_HEADER_SIZE)	//$0rtp_packet_size
 #define ENCODE_QUALITY 80
 
@@ -20,9 +21,16 @@ typedef unsigned short WORD;
 #define TRUST true
 
 
-#define WIDTH 336
-#define HEIGHT 254
 
+#define MAX_IMAGE_FILE_SIZE 204800
+
+#define IMAGE_QUEUE_SIZE 10
+
+enum returnType {SUCCESS=0, SOCK_ACCESS_ERROR=1, MAX_FILE_COUNT_REACHED=2, WAIT_FUNC_FAIL=3, STREAM_CREATION_ERROR=4, STREAM_LOAD_ERROR=5, MISSING_PACK_ERROR=6};
+
+#define PIXEL_SIZE 2
+
+#ifndef WIN32 
 
 typedef struct {
     BYTE r;
@@ -163,6 +171,7 @@ const RGB_T iron[128] =  {
 };
 
 
+
 #define SKI_DEFAULT_SEM_KEY ACE_DEFAULT_SEM_KEY
 #define BASE 1
 
@@ -199,5 +208,6 @@ const RGB_T iron[128] =  {
 extern timeval now;
 extern timeval start_time;
 
+#endif
 
 #endif //ROBOTCONTROL_DEF_H
