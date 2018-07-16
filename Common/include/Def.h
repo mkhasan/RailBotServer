@@ -21,6 +21,8 @@ typedef unsigned short WORD;
 #define TRUST true
 
 
+#define WIDTH 336
+#define HEIGHT 254
 
 #define MAX_IMAGE_FILE_SIZE 204800
 
