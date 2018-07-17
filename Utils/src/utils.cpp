@@ -113,12 +113,15 @@ typedef unsigned int uint32;
 #define print_error printf
 
 
+#include <iostream>
+
 
 using namespace RB_ROBOT_UTILS;
 
 
 Squeezer::Squeezer() : isInitialized(false) {
 
+	std::cout << "hello";
 
 }
 

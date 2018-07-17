@@ -4,10 +4,6 @@
 /home/usrc/RailBotServer/build/Utils/CMakeFiles/edit_cache.dir
 /home/usrc/RailBotServer/build/Utils/CMakeFiles/RbUtils.dir
 /home/usrc/RailBotServer/build/Utils/CMakeFiles/UtilsTest.dir
-/home/usrc/RailBotServer/build/testUtils/CMakeFiles/rebuild_cache.dir
-/home/usrc/RailBotServer/build/testUtils/CMakeFiles/edit_cache.dir
-/home/usrc/RailBotServer/build/testUtils/CMakeFiles/testUtils.dir
-/home/usrc/RailBotServer/build/testUtils/CMakeFiles/testUtilsTest.dir
 /home/usrc/RailBotServer/build/IR_Server/CMakeFiles/rebuild_cache.dir
 /home/usrc/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir
 /home/usrc/RailBotServer/build/IR_Server/CMakeFiles/edit_cache.dir

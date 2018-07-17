@@ -137,32 +137,6 @@ UtilsTest/fast:
 .PHONY : UtilsTest/fast
 
 #=============================================================================
-# Target rules for targets named testUtils
-
-# Build rule for target.
-testUtils: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testUtils
-.PHONY : testUtils
-
-# fast build rule for target.
-testUtils/fast:
-	$(MAKE) -f testUtils/CMakeFiles/testUtils.dir/build.make testUtils/CMakeFiles/testUtils.dir/build
-.PHONY : testUtils/fast
-
-#=============================================================================
-# Target rules for targets named testUtilsTest
-
-# Build rule for target.
-testUtilsTest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testUtilsTest
-.PHONY : testUtilsTest
-
-# fast build rule for target.
-testUtilsTest/fast:
-	$(MAKE) -f testUtils/CMakeFiles/testUtilsTest.dir/build.make testUtils/CMakeFiles/testUtilsTest.dir/build
-.PHONY : testUtilsTest/fast
-
-#=============================================================================
 # Target rules for targets named IR_Server
 
 # Build rule for target.
@@ -211,8 +185,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... RbUtils"
 	@echo "... UtilsTest"
-	@echo "... testUtils"
-	@echo "... testUtilsTest"
 	@echo "... IR_Server"
 	@echo "... IR_Handler"
 	@echo "... CompressionTest"

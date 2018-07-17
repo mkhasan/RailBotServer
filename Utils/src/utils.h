@@ -21,7 +21,7 @@
 	#define Sleep(ms) usleep(ms*1000)
 	#define _aligned_malloc(size, alignment) memalign(alignment, size)
 	#define _aligned_free free
-	#define fopen fopen64
+	//#define fopen fopen64		// uncommenting this line does not allow cout to be use used because cout internally use ::fopen
 	#define _fseeki64 fseeko64
 	#define _ftelli64 ftello64
 #endif

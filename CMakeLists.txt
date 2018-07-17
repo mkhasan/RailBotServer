@@ -17,7 +17,7 @@ set(VERBOSE_LEVEL DEBUG)
 set (COMMON_SRC "${PROJECT_SOURCE_DIR}/Common/src/time.cpp")
 
 add_subdirectory(Utils)
-add_subdirectory(testUtils)
+#add_subdirectory(testUtils)
 add_subdirectory(IR_Server)
 add_subdirectory(IR_Handler)
 add_subdirectory(CompressionTest)
