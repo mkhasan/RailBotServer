@@ -39,8 +39,9 @@ enum returnType {SUCCESS=0, SOCK_ACCESS_ERROR=1, MAX_FILE_COUNT_REACHED=2, WAIT_
 
 #define PIXEL_SIZE 2
 
-#ifndef WIN32 
-
+#ifdef WIN32 
+#define RB_DEBUG(...)
+#else
 typedef struct {
     BYTE r;
     BYTE g;
