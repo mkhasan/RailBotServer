@@ -6,15 +6,29 @@
 
 #IncludeRegexTransform: 
 
+../Common/include/Callback.h
+ace/streams.h
+../Common/include/ace/streams.h
+ace/Log_Msg.h
+../Common/include/ace/Log_Msg.h
+ace/Log_Msg_Callback.h
+../Common/include/ace/Log_Msg_Callback.h
+ace/Log_Record.h
+../Common/include/ace/Log_Record.h
+stdio.h
+../Common/include/stdio.h
+
 ../Common/include/Def.h
+ace/Log_Msg.h
+../Common/include/ace/Log_Msg.h
+Callback.h
+../Common/include/Callback.h
 sys/time.h
 -
 
 ../Common/include/IR_Image.h
 Def.h
 ../Common/include/Def.h
-ace/Log_Msg.h
-../Common/include/ace/Log_Msg.h
 ace/SV_Semaphore_Complex.h
 ../Common/include/ace/SV_Semaphore_Complex.h
 ace/Shared_Memory_SV.h
@@ -180,7 +194,33 @@ ace/OS_NS_string.h
 ace/OS_NS_unistd.h
 /home/usrc/ACE_wrappers/ace/ace/OS_NS_unistd.h
 
+/home/usrc/ACE_wrappers/ace/Log_Msg_Callback.h
+
 /home/usrc/ACE_wrappers/ace/Log_Priority.h
+
+/home/usrc/ACE_wrappers/ace/Log_Record.h
+ace/Log_Priority.h
+/home/usrc/ACE_wrappers/ace/ace/Log_Priority.h
+ace/Default_Constants.h
+/home/usrc/ACE_wrappers/ace/ace/Default_Constants.h
+ace/Basic_Types.h
+/home/usrc/ACE_wrappers/ace/ace/Basic_Types.h
+ace/iosfwd.h
+/home/usrc/ACE_wrappers/ace/ace/iosfwd.h
+ace/Log_Record.inl
+/home/usrc/ACE_wrappers/ace/ace/Log_Record.inl
+
+/home/usrc/ACE_wrappers/ace/Log_Record.inl
+ace/Global_Macros.h
+/home/usrc/ACE_wrappers/ace/ace/Global_Macros.h
+ace/os_include/arpa/os_inet.h
+/home/usrc/ACE_wrappers/ace/ace/os_include/arpa/os_inet.h
+ace/Time_Value.h
+/home/usrc/ACE_wrappers/ace/ace/Time_Value.h
+ace/OS_NS_string.h
+/home/usrc/ACE_wrappers/ace/ace/OS_NS_string.h
+ace/Malloc_Base.h
+/home/usrc/ACE_wrappers/ace/ace/Malloc_Base.h
 
 /home/usrc/ACE_wrappers/ace/Malloc_Base.h
 ace/os_include/sys/os_types.h

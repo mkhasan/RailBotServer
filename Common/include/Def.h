@@ -10,9 +10,16 @@ typedef unsigned char BYTE;
 typedef bool BOOL;
 typedef unsigned int DWORD;
 typedef unsigned short WORD;
+
+#include "ace/Log_Msg.h"
+
+#ifndef UTIL
+#include "Callback.h"
+#endif
+
 #endif 
 
-#define PACK_SIZE 60000
+#define PACK_SIZE 60024
 #define RTP_HEADER_SIZE 12
 #define RTP_PACK_SIZE (PACK_SIZE + RTP_HEADER_SIZE)	//$0rtp_packet_size
 #define ENCODE_QUALITY 80
@@ -185,28 +192,76 @@ const RGB_T iron[128] =  {
 
 #include <sys/time.h>
 
-#define RB_DEBUG(...) { \
-	gettimeofday(&now, NULL); \
-	printf("[%Lu:%Lu] ", now.tv_sec-start_time.tv_sec, now.tv_usec); \
-	printf(__VA_ARGS__); }
-
-#define RB_ERROR(...) {\
-	gettimeofday(&now, NULL); \
-	printf("[%Lu:%Lu] ", now.tv_sec-start_time.tv_sec, now.tv_usec); \
-	printf(__VA_ARGS__); }
 
 
-#define RB_DEBUG_RETURN(X, Y) {\
-	RB_DEBUG(X); \
-	return Y; \
-	}
+#ifndef V_LEVEL
+#error
+#endif
 
-#define RB_ERROR_RETURN(X, Y) { \
-	RB_ERROR(X); \
-	return Y; \
-	}
+#if V_LEVEL <= DEBUG
+#define RB_DEBUG(...) ACE_DEBUG((LM_DEBUG, __VA_ARGS__))
+#define _DEBUG_
+#else
+#define RB_DEBUG(...)
+#endif
+
+#if V_LEVEL <= INFO
+#define RB_INFO(...) ACE_DEBUG((LM_DEBUG, __VA_ARGS__))
+#else
+#define RB_INFO(...)
+#endif
+
+#if V_LEVEL <= WARN
+#define RB_WARN(...) ACE_DEBUG((LM_DEBUG, __VA_ARGS__))
+#else
+#define RB_WARN(...)
+#endif
+
+#if V_LEVEL <= ERROR
+#define RB_ERROR(...) ACE_DEBUG((LM_DEBUG, __VA_ARGS__))
+#else
+#define RB_ERROR(...)
+#endif
+
+#if V_LEVEL <= FATAL
+#define RB_FATAL(...) ACE_DEBUG((LM_DEBUG, __VA_ARGS__))
+#else
+#define RB_FATAL(...)
+#endif
+
+
+
+
+#define RB_RETURN(X, Y) \
+	do { \
+		X; \
+		return Y; \
+	} while (0)
+
+
+
+#define RB_DEBUG_RETURN(X, Y) \
+	do { \
+		RB_RETURN(RB_ERROR X, Y);\
+	} while (0)
+
+
+#define RB_ERROR_RETURN(X, Y) \
+	do { \
+		RB_RETURN(RB_ERROR X, Y);\
+	} while (0)
+
+
+
+
+#define RB_REQUIRE_RETURN(exp, ret) do{ if (!(exp)){ RB_WARN(#exp "\n"); return (ret); }}while(0)
 
 #define RB_ASSERT ACE_ASSERT
+
+#define RB_NEW_RETURN ACE_NEW_RETURN
+
+
+
 extern timeval now;
 extern timeval start_time;
 

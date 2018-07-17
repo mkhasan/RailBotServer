@@ -61,7 +61,7 @@ const char* ImageProcessor::GetNextFrameFragment(int& size, bool& isLastFragment
 			return NULL;
 		}
 
-		//RB_DEBUG("Image size %d PACK_SIZE %d \n", imageSize, PACK_SIZE);
+		RB_DEBUG("Image size %d PACK_SIZE %d \n", imageSize, PACK_SIZE);
 		if (imageSize <= PACK_SIZE)
 		{
 			
@@ -120,6 +120,8 @@ const char * ImageProcessor::GetNextFrame(int& size, unsigned short & width, uns
 	size_t compSize = sizeof(compData);
 	size_t uncompSize;
 	size = 0;
+
+	RB_INFO("getting next fram ...\n");
 
 	if (mutex.acquire () == -1) {
 		RB_ERROR(("ImageProcessor::GetNextFrame: Error in acquiring mutex\n"), -1);

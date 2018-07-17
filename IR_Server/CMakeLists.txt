@@ -13,6 +13,8 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -Wall -Wextra")
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -Wall -Wextra")
 
 
+add_definitions(-DV_LEVEL=${VERBOSE_LEVEL})
+
 include_directories(${PROJECT_SOURCE_DIR}/Common/include ${PROJECT_SOURCE_DIR}/Utils/src)
 include_directories($ENV{ACE_ROOT})
 

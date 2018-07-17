@@ -46,7 +46,7 @@ struct RtspReqData{
 };
 
 void Test();
-const int port = 8554;
+const int port = 8556;
 
 
 ACE_SV_Semaphore_Complex mutex;
@@ -57,6 +57,9 @@ int MasterSocket;
 IR_Image *pImage = NULL;
 
 static bool quit = false;
+
+pthread_t sniffer_thread;
+pthread_t req_handler;
 
 void CatchSignal(int sig);
 
@@ -80,7 +83,17 @@ int main(int argc , char *argv[])
     //Create socket
     gettimeofday(&start_time, NULL);
 
+    Callback *callback = new Callback;
+    ACE_LOG_MSG->set_flags(ACE_Log_Msg::MSG_CALLBACK);
+    ACE_LOG_MSG->clr_flags(ACE_Log_Msg::STDERR);
+    ACE_LOG_MSG->msg_callback(callback);
 
+
+    RB_DEBUG("hello \n");
+
+    RB_ERROR("hello \n");
+
+    exit(1);
     //////////////////   For Shared memory ///////////////////////////
 
 	if(mutex.open (SEM_KEY_1, ACE_SV_Semaphore_Complex::ACE_CREATE, 1) == -1)
@@ -163,7 +176,6 @@ int main(int argc , char *argv[])
 
 		puts("Connection accepted");
 
-		pthread_t sniffer_thread;
 		new_sock = (int *)malloc(1);
 		*new_sock = ClientSocket;
 
@@ -178,7 +190,12 @@ int main(int argc , char *argv[])
 		puts("Handler assigned");
 	}
 
-    close(MasterSocket);
+
+    pthread_join(sniffer_thread,NULL);
+
+    int ret = close(MasterSocket);
+
+    RB_INFO("ret value of close is %d \n", ret);
 
     if (synch.release () == -1)
     	RB_ERROR_RETURN(("IR_Server: Error in releasing synch\n"), -1);
@@ -227,9 +244,14 @@ void *SessionThreadHandler(void *socket_desc)
     		Streamer.StreamImage(RtspSession.GetStreamID());
 
     	usleep(intervalUs);
+    	//RB_INFO("Next loop \n");
     }
 
     //Receive a message from client
+
+    pthread_join(req_handler,NULL);
+
+	close(Client);
 
     pthread_exit(NULL);
 
@@ -297,6 +319,8 @@ void *RtspRequestHandler(void *userData)
 
 	}
 
+	pData->Stop = true;
+
     return NULL;
 }
 
@@ -330,16 +354,21 @@ void CatchSignal(int sig)
 
 
 
-	RB_DEBUG("Signal %d caught \n", sig);
+	RB_INFO("Signal %d caught \n", sig);
 
 	quit = true;
 
-    close(MasterSocket);
+
+
+
+
+    //close(MasterSocket);
 
     if (synch.release () == -1)
     	RB_ERROR_RETURN(("CatchSignal: Error in releasing synch\n"), );
 
-    exit(1);
+    if(sig == 20)
+    	exit(1);
 
 
 }

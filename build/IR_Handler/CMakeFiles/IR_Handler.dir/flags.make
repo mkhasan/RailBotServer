@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS =  -D_GNU_SOURCE=1 -D_REENTRANT -I/usr/include/SDL -ggdb -Wall -std=c++0x -Wno-narrowing  
 
-CXX_DEFINES = 
+CXX_DEFINES = -DDEBUG=0 -DERROR=3 -DFATAL=2 -DINFO=1 -DV_LEVEL=DEBUG -DWARN=2
 
 CXX_INCLUDES = -I/home/usrc/RailBotServer/Common/include -I/home/usrc/ACE_wrappers 
 

@@ -5,6 +5,8 @@ set (TARGET RbUtils)
 set (TARGET_TEST UtilsTest)
 
 
+add_definitions(-DUTIL)
+
 option(BUILD_X64 "build 64-bit" TRUE)
 
 message("Initial BUILD_X64=${BUILD_X64}")
@@ -31,6 +33,7 @@ set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra -O3 -fomit-frame-pointer -fexpensive-optimizations")
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra")
 
+add_definitions(-DV_LEVEL=${VERBOSE_LEVEL})
 
 # -fno-strict-aliasing is *required* to compile LZHAM
 set(GCC_COMPILE_FLAGS "-fno-strict-aliasing -D_LARGEFILE64_SOURCE=1 -D_FILE_OFFSET_BITS=64")
@@ -50,6 +53,8 @@ set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_RELEASE} ${GCC_COMPILE_FLAGS} -D
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${GCC_COMPILE_FLAGS} -D_DEBUG")
 
 include_directories(
+	$ENV{ACE_ROOT}
+	${PROJECT_SOURCE_DIR}/Common/include
 	$ENV{LZHAM_DIR}/lzhamdecomp
     $ENV{LZHAM_DIR}/lzhamcomp
 	$ENV{LZHAM_DIR}/include)
@@ -58,7 +63,8 @@ include_directories(
 add_library(${TARGET} src/utils.cpp)
 
 link_directories($ENV{LZHAM_DIR}/build/lzhamdll)
+link_directories($ENV{ACE_ROOT}/lib)
 
 add_executable(${TARGET_TEST} src/utils_test.cpp)
 
-target_link_libraries(${TARGET_TEST} ${TARGET} lzhamdll)
+target_link_libraries(${TARGET_TEST} ${TARGET} lzhamdll ACE)

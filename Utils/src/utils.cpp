@@ -7,12 +7,16 @@
 
 
 
+
 #include "utils.h"
 
+#include "Def.h"
 
-#include <stdio.h>
+
+
 #include <memory.h>
 #include <string.h>
+
 
 
 
@@ -108,9 +112,13 @@ typedef unsigned int uint32;
 
 #define print_error printf
 
+
+
 using namespace RB_ROBOT_UTILS;
 
+
 Squeezer::Squeezer() : isInitialized(false) {
+
 
 }
 
@@ -199,7 +207,7 @@ void Squeezer::Test() {
 	      return ;
 	   }
 
-	   printf("Uncompressed size: %u\nCompressed size: %u\n", (uint)uncomp_len, (uint)cmp_len);
+	   RB_DEBUG("Uncompressed size: %u\nCompressed size: %u\n", (uint)uncomp_len, (uint)cmp_len);
 
 	   lzham_decompress_params decomp_params;
 	   memset(&decomp_params, 0, sizeof(decomp_params));
@@ -224,7 +232,7 @@ void Squeezer::Test() {
 	      return ;
 	   }
 
-	   printf("Compression test succeeded.\n");
+	   RB_DEBUG("Compression test succeeded.\n");
 
 }
 
@@ -257,7 +265,7 @@ int Squeezer::Compress(lzham_uint8 *dest, size_t * pDestLength, const lzham_uint
 	  return -1;
 	}
 
-	printf("Uncompressed size: %u\nCompressed size: %u\n", (uint)srcLength, (uint)*pDestLength);
+	RB_DEBUG("Uncompressed size: %u\nCompressed size: %u\n", (uint)srcLength, (uint)*pDestLength);
 
 	return 0;
 
