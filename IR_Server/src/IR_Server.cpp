@@ -46,7 +46,7 @@ struct RtspReqData{
 };
 
 void Test();
-const int port = 8556;
+const int port = 8554;
 
 
 ACE_SV_Semaphore_Complex mutex;
@@ -62,6 +62,10 @@ pthread_t sniffer_thread;
 pthread_t req_handler;
 
 void CatchSignal(int sig);
+
+Callback *callback = NULL;
+
+
 
 int main(int argc , char *argv[])
 {
@@ -83,17 +87,17 @@ int main(int argc , char *argv[])
     //Create socket
     gettimeofday(&start_time, NULL);
 
-    Callback *callback = new Callback;
+    /*
+    callback = new Callback;
     ACE_LOG_MSG->set_flags(ACE_Log_Msg::MSG_CALLBACK);
     ACE_LOG_MSG->clr_flags(ACE_Log_Msg::STDERR);
     ACE_LOG_MSG->msg_callback(callback);
 
+    */
+    // now.tv_sec-start_time.tv_sec, now.tv_usec)
 
-    RB_DEBUG("hello \n");
 
-    RB_ERROR("hello \n");
 
-    exit(1);
     //////////////////   For Shared memory ///////////////////////////
 
 	if(mutex.open (SEM_KEY_1, ACE_SV_Semaphore_Complex::ACE_CREATE, 1) == -1)
@@ -179,6 +183,7 @@ int main(int argc , char *argv[])
 		new_sock = (int *)malloc(1);
 		*new_sock = ClientSocket;
 
+
 		if( pthread_create( &sniffer_thread , NULL ,  SessionThreadHandler , (void*) new_sock) < 0)
 		{
 			perror("could not create thread");
@@ -203,16 +208,22 @@ int main(int argc , char *argv[])
 
     return 0;
 
+
+    delete callback;
 }
 
 
 void *SessionThreadHandler(void *socket_desc)
 {
     //Get the socket descriptor
+
+
     int Client = *(int*)socket_desc;
 
     ImageProcessor imgPro;
 
+    RB_DEBUG("hello1 \n");
+    printf("hello1x \n");
 
     int res;
     CStreamer Streamer(Client, &imgPro);
@@ -237,13 +248,44 @@ void *SessionThreadHandler(void *socket_desc)
 		return NULL;
 	}
 
-    const unsigned long intervalUs = 40000;
+
+    const unsigned long intervalUs = 80000;
+
+
+
+
+    ACE_Time_Value twakeup, tinc, tsleep, t1;
+
+    tinc.set(0, intervalUs);
+
+    twakeup = ACE_OS::gettimeofday();
 
     while(!data.Stop && quit == false) {
-    	if(data.StreamingStarted)
-    		Streamer.StreamImage(RtspSession.GetStreamID());
 
-    	usleep(intervalUs);
+    	twakeup += tinc;
+
+    	if(data.StreamingStarted) {
+    		Streamer.StreamImage(RtspSession.GetStreamID());
+    		//printf("(%Lu %Lu) \n", twakeup.sec(), twakeup.usec());
+    	}
+
+    	//usleep(intervalUs);
+
+    	t1 = ACE_OS::gettimeofday();
+
+    	tsleep= twakeup - t1;
+
+        if (tsleep > ACE_Time_Value::zero)
+        	ACE_OS::sleep(tsleep);
+        else {
+
+        	RB_DEBUG("No time to sleep enough !!! \n");
+        	Sleep(5);
+        	twakeup = ACE_OS::gettimeofday();
+        }
+
+
+
     	//RB_INFO("Next loop \n");
     }
 
@@ -367,8 +409,10 @@ void CatchSignal(int sig)
     if (synch.release () == -1)
     	RB_ERROR_RETURN(("CatchSignal: Error in releasing synch\n"), );
 
-    if(sig == 20)
+    if(sig == 20) {
+    	delete callback;
     	exit(1);
+    }
 
 
 }

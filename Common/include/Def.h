@@ -13,9 +13,9 @@ typedef unsigned short WORD;
 
 #include "ace/Log_Msg.h"
 
-#ifndef UTIL
+
 #include "Callback.h"
-#endif
+
 
 #endif 
 
@@ -192,14 +192,21 @@ const RGB_T iron[128] =  {
 
 #include <sys/time.h>
 
-
+#define Sleep(ms) usleep(ms*1000)
+#include "ace/Task.h"
 
 #ifndef V_LEVEL
 #error
 #endif
 
+// = ACE_OS::gettimeofday();
+
 #if V_LEVEL <= DEBUG
-#define RB_DEBUG(...) ACE_DEBUG((LM_DEBUG, __VA_ARGS__))
+#define RB_DEBUG(...) { \
+		printf("[%Lu:%Lu] ", ACE_OS::gettimeofday().sec(), ACE_OS::gettimeofday().usec()); \
+        printf(__VA_ARGS__); \
+		}
+
 #define _DEBUG_
 #else
 #define RB_DEBUG(...)

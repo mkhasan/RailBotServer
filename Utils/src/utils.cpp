@@ -113,7 +113,7 @@ typedef unsigned int uint32;
 #define print_error printf
 
 
-#include <iostream>
+
 
 
 using namespace RB_ROBOT_UTILS;
@@ -121,7 +121,7 @@ using namespace RB_ROBOT_UTILS;
 
 Squeezer::Squeezer() : isInitialized(false) {
 
-	std::cout << "hello";
+
 
 }
 
@@ -210,7 +210,7 @@ void Squeezer::Test() {
 	      return ;
 	   }
 
-	   RB_DEBUG("Uncompressed size: %u\nCompressed size: %u\n", (uint)uncomp_len, (uint)cmp_len);
+	   //RB_DEBUG("Uncompressed size: %u\nCompressed size: %u\n", (uint)uncomp_len, (uint)cmp_len);
 
 	   lzham_decompress_params decomp_params;
 	   memset(&decomp_params, 0, sizeof(decomp_params));
@@ -268,7 +268,7 @@ int Squeezer::Compress(lzham_uint8 *dest, size_t * pDestLength, const lzham_uint
 	  return -1;
 	}
 
-	RB_DEBUG("Uncompressed size: %u\nCompressed size: %u\n", (uint)srcLength, (uint)*pDestLength);
+	//RB_DEBUG("Uncompressed size: %u\nCompressed size: %u\n", (uint)srcLength, (uint)*pDestLength);
 
 	return 0;
 

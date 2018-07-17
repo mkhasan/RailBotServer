@@ -245,7 +245,7 @@ void CStreamer::StreamImage(int StreamID)
 
 
 
-	RB_INFO("Getting packet PACK SIZE %d \n", PACK_SIZE);
+	RB_DEBUG("Getting packet PACK SIZE %d \n", PACK_SIZE);
 	do {
 		data = m_ImageProcessor->GetNextFrameFragment(size, lastFragment, width, height, pixelWidth);
 
@@ -257,18 +257,18 @@ void CStreamer::StreamImage(int StreamID)
 
 		RB_ASSERT(size <= PACK_SIZE);
 
-		//RB_DEBUG("Sending \n");
+		RB_DEBUG("Sending \n");
 		SendRtpPacket(data, size, lastFragment, width, height, pixelWidth);
 		testCount ++;
 		if(lastFragment)
 			break;
 		usleep(2000);
-		RB_INFO("after sleep \n");
+		RB_DEBUG("after sleep \n");
 	} while(1);
 
 	//RB_ASSERT(testCount <= 1);
 
-	RB_INFO("testCount is %d \n", testCount);
+	//RB_INFO("testCount is %d \n", testCount);
 	/*
     char  * Samples1[2] = { JpegScanDataCh1A, JpegScanDataCh1B };
     char  * Samples2[2] = { JpegScanDataCh2A, JpegScanDataCh2B };

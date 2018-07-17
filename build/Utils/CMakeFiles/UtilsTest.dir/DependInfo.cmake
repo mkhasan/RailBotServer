@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/usrc/RailBotServer/Common/src/time.cpp" "/home/usrc/RailBotServer/build/Utils/CMakeFiles/UtilsTest.dir/__/Common/src/time.cpp.o"
   "/home/usrc/RailBotServer/Utils/src/utils_test.cpp" "/home/usrc/RailBotServer/build/Utils/CMakeFiles/UtilsTest.dir/src/utils_test.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
@@ -14,7 +15,6 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
   "ERROR=3"
   "FATAL=2"
   "INFO=1"
-  "UTIL"
   "V_LEVEL=DEBUG"
   "WARN=2"
   )

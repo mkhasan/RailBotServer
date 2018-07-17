@@ -5,7 +5,7 @@ set (TARGET RbUtils)
 set (TARGET_TEST UtilsTest)
 
 
-add_definitions(-DUTIL)
+
 
 option(BUILD_X64 "build 64-bit" TRUE)
 
@@ -65,6 +65,6 @@ add_library(${TARGET} src/utils.cpp)
 link_directories($ENV{LZHAM_DIR}/build/lzhamdll)
 link_directories($ENV{ACE_ROOT}/lib)
 
-add_executable(${TARGET_TEST} src/utils_test.cpp)
+add_executable(${TARGET_TEST} src/utils_test.cpp ${COMMON_SRC})
 
 target_link_libraries(${TARGET_TEST} ${TARGET} lzhamdll ACE)
