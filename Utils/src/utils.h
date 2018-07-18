@@ -74,6 +74,8 @@ public:
 
 	static Squeezer * Instance();
 	void Test();
+
+	bool IsInitialized();
 };
 
 

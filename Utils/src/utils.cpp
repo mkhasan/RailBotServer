@@ -335,3 +335,7 @@ int Squeezer::DeCompress(lzham_uint8 *dest, size_t * pDestLength, const lzham_ui
 
 
 }
+
+bool Squeezer::IsInitialized() {
+	return isInitialized;
+}

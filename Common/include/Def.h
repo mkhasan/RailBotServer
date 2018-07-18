@@ -39,6 +39,9 @@ enum returnType {SUCCESS=0, SOCK_ACCESS_ERROR=1, MAX_FILE_COUNT_REACHED=2, WAIT_
 
 #define PIXEL_SIZE 2
 
+#define EPSILON 0.001
+#define FPS 12.5
+
 #ifdef WIN32 
 #define RB_DEBUG(...)
 #else
