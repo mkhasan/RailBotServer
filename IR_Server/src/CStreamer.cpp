@@ -248,7 +248,7 @@ void CStreamer::StreamImage(int StreamID)
 
 
 	RB_DEBUG("Getting packet PACK SIZE %d \n", PACK_SIZE);
-	do {
+//	do {
 		data = m_ImageProcessor->GetNextFrameFragment(size, lastFragment, width, height, pixelWidth);
 
 		if (size <= 0) {
@@ -262,11 +262,13 @@ void CStreamer::StreamImage(int StreamID)
 		RB_DEBUG("Sending is last framment ? %d \n", lastFragment);
 		SendRtpPacket(data, size, lastFragment, width, height, pixelWidth);
 		testCount ++;
+		/*
 		if(lastFragment)
 			break;
 		usleep(2000);
 		RB_DEBUG("after sleep \n");
-	} while(1);
+		*/
+	//} while(1);
 
 	//RB_ASSERT(testCount <= 1);
 
