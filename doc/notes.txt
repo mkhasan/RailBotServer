@@ -1,4 +1,10 @@
 the application was unable to start correctly 0xc00007b occured with curl library in windows. The problem occured becuase the system takes ssleay32.dll and libeay32.dll from some place not decided by me. 
 Most prably the the version of those two dll were incompatible with libcurld.dll which is for win64. Putting the appropriate dlls in the appropriate place solved the problem. 
 
+How to get static ip address of an unknown device
+
+install wireshark 
+connect the device with any interface with any ip address
+trace the the interface using wireshark
+switch off the device and then switch on it while tracing...done
 
