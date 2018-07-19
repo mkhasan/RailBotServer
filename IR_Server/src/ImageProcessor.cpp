@@ -121,7 +121,7 @@ const char * ImageProcessor::GetNextFrame(int& size, unsigned short & width, uns
 	size_t uncompSize;
 	size = 0;
 
-	RB_INFO("getting next fram ...\n");
+	//RB_INFO("getting next fram ...\n");
 
 	if (mutex.acquire () == -1) {
 		RB_ERROR(("ImageProcessor::GetNextFrame: Error in acquiring mutex\n"), -1);

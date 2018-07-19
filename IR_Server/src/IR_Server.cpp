@@ -85,7 +85,7 @@ int main(int argc , char *argv[])
 
 
     //Create socket
-    gettimeofday(&start_time, NULL);
+    //gettimeofday(&start_time, NULL);
 
     /*
     callback = new Callback;
@@ -222,8 +222,7 @@ void *SessionThreadHandler(void *socket_desc)
 
     ImageProcessor imgPro;
 
-    RB_DEBUG("hello1 \n");
-    printf("hello1x \n");
+
 
     int res;
     CStreamer Streamer(Client, &imgPro);
@@ -249,7 +248,7 @@ void *SessionThreadHandler(void *socket_desc)
 	}
 
 
-    const unsigned long intervalUs = 80000;
+    const unsigned long intervalUs = ((1000.0+EPSILON)/FPS)*1000;
 
 
 
@@ -279,8 +278,8 @@ void *SessionThreadHandler(void *socket_desc)
         	ACE_OS::sleep(tsleep);
         else {
 
-        	RB_DEBUG("No time to sleep enough !!! \n");
-        	Sleep(5);
+        	RB_INFO("No time to sleep enough !!! \n");
+        	usleep(intervalUs/2);
         	twakeup = ACE_OS::gettimeofday();
         }
 

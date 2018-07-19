@@ -92,6 +92,8 @@ void CStreamer::SendRtpPacket(const char * data, int dataLength, bool isLastFrag
     RtpBuf[10] = height & 0xFF;
     RtpBuf[11] = height >> 8;
 
+    int thisSeq = m_SequenceNumber;
+
 
 	if (m_SequenceNumber == 35)
 		;//dataLength = dataLength;
@@ -102,7 +104,7 @@ void CStreamer::SendRtpPacket(const char * data, int dataLength, bool isLastFrag
 	//cout << "seq is " << m_SequenceNumber << endl;
 	//(isLastFragment ? 0x00 : 0x80);
     m_SequenceNumber += (isLastFragment ? 1 : 0);    // prepare the packet counter for the next packet
-    m_Timestamp += (isLastFragment ? 1 : 0)*3600;    // fixed timestamp increment for a frame rate of 25fps
+    m_Timestamp += (isLastFragment ? 1 : 0)*3600;
 
     if (m_TCPTransport) //
         RB_ASSERT(0); //send(m_Client,RtpBuf,RtpPacketSize,0);
@@ -111,7 +113,7 @@ void CStreamer::SendRtpPacket(const char * data, int dataLength, bool isLastFrag
 
     //sendto(m_RtpSocket,&RtpBuf[0],RtpPacketSize,0,(SOCKADDR *) & RecvAddr,sizeof(RecvAddr));
 
-    RB_DEBUG("client port is %d size is %d\n", m_RtpClientPort, RtpPacketSize);
+    RB_DEBUG("client port is %d seq no %d size is %d \n", m_RtpClientPort, thisSeq, RtpPacketSize);
 };
 
 /*
@@ -257,7 +259,7 @@ void CStreamer::StreamImage(int StreamID)
 
 		RB_ASSERT(size <= PACK_SIZE);
 
-		RB_DEBUG("Sending \n");
+		RB_DEBUG("Sending is last framment ? %d \n", lastFragment);
 		SendRtpPacket(data, size, lastFragment, width, height, pixelWidth);
 		testCount ++;
 		if(lastFragment)
