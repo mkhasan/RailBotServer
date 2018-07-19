@@ -4,3 +4,6 @@ Compiling ffmpeg
 ffserver 
 	-> https://trac.ffmpeg.org/wiki/ffserver
 
+
+how to reduce latency in ffserver streaming
+	-> https://forums.freebsd.org/threads/unwanted-delay-in-webcam-streaming.65547/
