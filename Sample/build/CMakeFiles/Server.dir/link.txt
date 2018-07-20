@@ -1,0 +1,1 @@
+/usr/bin/c++   -ggdb -Wall  -rdynamic CMakeFiles/Server.dir/src/Server.cpp.o  -o ../bin/Server 
