@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/usrc/external/RailRobot/RailBotServer/Common/src/time.cpp" "/home/usrc/external/RailRobot/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir/__/Common/src/time.cpp.o"
-  "/home/usrc/external/RailRobot/RailBotServer/IR_Server/src/CRtspSession.cpp" "/home/usrc/external/RailRobot/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir/src/CRtspSession.cpp.o"
-  "/home/usrc/external/RailRobot/RailBotServer/IR_Server/src/CStreamer.cpp" "/home/usrc/external/RailRobot/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir/src/CStreamer.cpp.o"
-  "/home/usrc/external/RailRobot/RailBotServer/IR_Server/src/IR_Server.cpp" "/home/usrc/external/RailRobot/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir/src/IR_Server.cpp.o"
-  "/home/usrc/external/RailRobot/RailBotServer/IR_Server/src/ImageProcessor.cpp" "/home/usrc/external/RailRobot/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir/src/ImageProcessor.cpp.o"
-  "/home/usrc/external/RailRobot/RailBotServer/IR_Server/src/JPEGSamples.cpp" "/home/usrc/external/RailRobot/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir/src/JPEGSamples.cpp.o"
+  "/home/usrc/RailBotServer/Common/src/time.cpp" "/home/usrc/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir/__/Common/src/time.cpp.o"
+  "/home/usrc/RailBotServer/IR_Server/src/CRtspSession.cpp" "/home/usrc/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir/src/CRtspSession.cpp.o"
+  "/home/usrc/RailBotServer/IR_Server/src/CStreamer.cpp" "/home/usrc/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir/src/CStreamer.cpp.o"
+  "/home/usrc/RailBotServer/IR_Server/src/IR_Server.cpp" "/home/usrc/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir/src/IR_Server.cpp.o"
+  "/home/usrc/RailBotServer/IR_Server/src/ImageProcessor.cpp" "/home/usrc/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir/src/ImageProcessor.cpp.o"
+  "/home/usrc/RailBotServer/IR_Server/src/JPEGSamples.cpp" "/home/usrc/RailBotServer/build/IR_Server/CMakeFiles/IR_Server.dir/src/JPEGSamples.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -27,13 +27,13 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../Common/include"
   "../Utils/src"
-  "/home/usrc/external/ACE_wrappers"
-  "/home/usrc/external/RailRobot/sample/lzham_codec-master/include"
+  "/home/usrc/ACE_wrappers"
+  "/home/usrc/lzham_codec-master/include"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/usrc/external/RailRobot/RailBotServer/build/Utils/CMakeFiles/RbUtils.dir/DependInfo.cmake"
+  "/home/usrc/RailBotServer/build/Utils/CMakeFiles/RbUtils.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

@@ -188,9 +188,11 @@ void *CommandThreadHandler( void *ptr ) {
 		Sleep(500);
 	}
 
-	pthread_join(receiverT, NULL);
+
+	pthread_cancel(receiverT);
 
 	close(s);
+
 
 
 	return 0;
@@ -207,19 +209,21 @@ void *Receiver( void *ptr ) {
 
 	//try to receive some data, this is a blocking call
 	while(!quit) {
+		RB_DEBUG("try to receive some data, this is a blocking call \n");
 		if (recvfrom(p->s, buf, BUFLEN, 0, (struct sockaddr *) &p->si_other, (socklen_t *)&slen) == -1) {
 
 			RB_ERROR("Receiver: recvfrom() failed \n");
 			exit(1);
 		}
 
+		puts(buf);
 		Sleep(50);
 	}
 
 
 
 
-	puts(buf);
+
 
 
 }

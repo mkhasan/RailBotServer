@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/usrc/external/RailRobot/RailBotServer/Sample/src/Client.cpp
+/home/usrc/RailBotServer/Sample/src/Client.cpp
 stdio.h
 -
 string.h

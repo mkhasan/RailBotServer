@@ -23,7 +23,7 @@ typedef unsigned short WORD;
 #define IMAGE_CAM_IP "120.203.102.210"
 #define IR_CAM_IP "120.203.102.211"
 
-#define CTROL_PORT 8899
+#define CTROL_PORT 8888
 
 
 #define PACK_SIZE 60024
