@@ -20,5 +20,6 @@ add_subdirectory(Utils)
 #add_subdirectory(testUtils)
 add_subdirectory(IR_Server)
 add_subdirectory(IR_Handler)
-add_subdirectory(CompressionTest)
+#add_subdirectory(CompressionTest)
+add_subdirectory(CmdProcessor)
  
