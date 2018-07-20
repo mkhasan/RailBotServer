@@ -15,10 +15,7 @@
 
 
 
-#include<stdio.h> //printf
-#include<string.h> //memset
-#include<stdlib.h> //exit(0);
-#include<arpa/inet.h>
+
 #include<sys/socket.h>
 
 
@@ -151,6 +148,21 @@ void *CommandThreadHandler( void *ptr ) {
 
 	int count = 0;
 	char curCmd[100];
+
+	pthread_t threadT;
+
+	receiver_info receiverInfo;
+	receiverInfo.s = s;
+	receiverInfo.si_other = si_other;
+
+	pthread_t receiverT;
+
+	if( pthread_create( &receiverT , NULL ,  Receiver , (void *) &receiverInfo) < 0)
+	{
+		RB_ERROR("could not create thread");
+		exit(1);
+	}
+
 	while (quit == false)
 	{
 		//printf("Enter message : ");
@@ -173,30 +185,43 @@ void *CommandThreadHandler( void *ptr ) {
 		}
 
 
-
-		//receive a reply and print it
-		//clear the buffer by filling null, it might have previously received data
-		memset(buf, '\0', BUFLEN);
-		//try to receive some data, this is a blocking call
-		if (recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &si_other, (socklen_t *)&slen) == -1) {
-
-			RB_ERROR("CommandThreadHandler: recvfrom() failed \n");
-			exit(1);
-		}
-
-
-
-
-		puts(buf);
-
-
 		Sleep(500);
 	}
+
+	pthread_join(receiverT, NULL);
 
 	close(s);
 
 
 	return 0;
+}
+
+void *Receiver( void *ptr ) {
+	receiver_info * p = (receiver_info *) ptr;
+
+
+	char buf[BUFLEN];
+	int slen = sizeof(p->si_other);
+	memset(buf, '\0', BUFLEN);
+
+
+	//try to receive some data, this is a blocking call
+	while(!quit) {
+		if (recvfrom(p->s, buf, BUFLEN, 0, (struct sockaddr *) &p->si_other, (socklen_t *)&slen) == -1) {
+
+			RB_ERROR("Receiver: recvfrom() failed \n");
+			exit(1);
+		}
+
+		Sleep(50);
+	}
+
+
+
+
+	puts(buf);
+
+
 }
 
 void GetCmd(char *_cmd) {
