@@ -59,6 +59,9 @@ int main(int argc, char *argv[]) {
 
 	const char* speed1 = "0020";
 	const char* dist = "0005";
+	static int tiltAngle = 0;
+	const int ANGLE_STEP = 20;
+
 
 	while (key != 'q') {
 		scanf("%c", &key);
@@ -96,10 +99,39 @@ int main(int argc, char *argv[]) {
 				for (int i = 0; i < CMD_LEN; i++)
 					curCmd[i] = '0';
 
-				sprintf_s(curCmd, "%c10%s0%c000000000", 0x02, 0, 0x03);
+				sprintf_s(curCmd, "%c10%s0%c000000000", 0x02, "0000", 0x03);
 				SetCmd(curCmd);
 
 				break;
+
+			case 'u':
+
+				tiltAngle += ANGLE_STEP;
+
+				for (int i = 0; i < CMD_LEN; i++)
+					curCmd[i] = '0';
+				curCmd[CMD_LEN] = 0;
+
+				sprintf_s(curCmd, "%c31%4d0%c000000000", 0x02, tiltAngle, 0x03);
+				SetCmd(curCmd);
+
+				break;
+
+			case 'd':
+
+				tiltAngle -= ANGLE_STEP;
+
+				for (int i = 0; i < CMD_LEN; i++)
+					curCmd[i] = '0';
+				curCmd[CMD_LEN] = 0;
+
+				sprintf_s(curCmd, "%c31%4d0%c000000000", 0x02, tiltAngle, 0x03);
+				SetCmd(curCmd);
+
+				break;
+
+
+
 
 
 			case 'q':
@@ -183,15 +215,15 @@ void *CommandThreadHandler( void *ptr ) {
 		for (int i = 0; i < 100; i++)
 			curCmd[i] = 0;
 
-		GetCmd(curCmd);
+		GetCmd(message);
 
-		strcpy(message, curCmd);
+		//strcpy(message, curCmd);
 
-		if(message[1] != '5') {
+		if(message[0] == 0 || message[1] != '5') {
 			RB_DEBUG("Sending cmd %c%c%c%c%c%c \n", message[1], message[2], message[3], message[4], message[5], message[6]);
 
 
-			if (sendto(s, message, strlen(message) , 0 , (struct sockaddr *) &si_other, slen)==-1) {
+			if (sendto(s, message, CMD_LEN , 0 , (struct sockaddr *) &si_other, slen)==-1) {
 
 				RB_ERROR("CommandThreadHandler: sendto() failed \n");
 				exit(1);
@@ -265,6 +297,7 @@ void GetCmd(char *_cmd) {
 
 		for (int i = 0; i < CMD_LEN; i++)
 			cmd[i] = message[i];
+		_cmd[CMD_LEN] = cmd[CMD_LEN] = 0;
 
 	}
 
