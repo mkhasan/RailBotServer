@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/CmdProcessor.dir/src/CmdProcessor.cpp.o"
+  "CMakeFiles/CmdProcessor.dir/src/CmdManager.cpp.o"
   "CMakeFiles/CmdProcessor.dir/__/Common/src/time.cpp.o"
   "../../bin/CmdProcessor.pdb"
   "../../bin/CmdProcessor"

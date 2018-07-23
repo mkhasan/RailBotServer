@@ -22,8 +22,8 @@ include_directories($ENV{ACE_ROOT})
 
 link_directories($ENV{ACE_ROOT}/lib)
 
-add_executable(${TARGET} src/${TARGET}.cpp ${COMMON_SRC})
+add_executable(${TARGET} src/${TARGET}.cpp src/CmdManager.cpp ${COMMON_SRC})
 
-target_link_libraries(${TARGET} ACE pthread)
+target_link_libraries(${TARGET} ACE mosquittopp pthread)
 
  

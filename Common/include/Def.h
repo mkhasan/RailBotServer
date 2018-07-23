@@ -49,6 +49,10 @@ enum returnType {SUCCESS=0, SOCK_ACCESS_ERROR=1, MAX_FILE_COUNT_REACHED=2, WAIT_
 #define EPSILON 0.001
 #define FPS 12.5
 
+#define TO_CLIENT "CMD_MANAGER/TO_CLIENT"
+#define FROM_CLIENT "CMD_MANAGER/FROM_CLIENT"
+
+
 #ifdef WIN32 
 #define RB_DEBUG(...)
 #else
