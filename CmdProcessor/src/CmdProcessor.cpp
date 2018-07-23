@@ -8,7 +8,9 @@
 
 
 
+
 #include "CmdProcessor.h"
+#include "CmdManager.h"
 
 #include "Def.h"
 
@@ -41,6 +43,13 @@ int main(int argc, char *argv[]) {
 		RB_ERROR("mutex init failed\n");
 		return 1;
 	}
+
+
+	////////////  initializing mosquitto ///////////////
+
+	CmdManager *cmdManager = CmdManager::Instnace();
+	int ret = cmdManager->connect("localhost", 1883);
+	RB_ASSERT(ret == 0);
 
 	pthread_t threadT;
 
@@ -280,6 +289,7 @@ void *Receiver( void *ptr ) {
 	memset(buf, '\0', BUFLEN);
 
 
+
 	//try to receive some data, this is a blocking call
 	while(!quit) {
 		RB_DEBUG("try to receive some data, this is a blocking call \n");
@@ -289,6 +299,8 @@ void *Receiver( void *ptr ) {
 			exit(1);
 		}
 
+		buf[CMD_LEN] = 0;
+		CmdManager::SetCmd(buf);
 		puts(buf);
 		Sleep(50);
 	}

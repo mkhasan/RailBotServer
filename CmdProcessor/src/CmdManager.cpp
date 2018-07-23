@@ -30,6 +30,11 @@ CmdManager::~CmdManager() {
 	pthread_mutex_destroy(&lock);
 }
 
+CmdManager * CmdManager::Instnace() {
+	static CmdManager cmdManager;
+	return &cmdManager;
+}
+
 int CmdManager::connect(const char *host, int port) {
 	int keepalive = 60;
 	mosquittopp::connect(host, port, keepalive);

@@ -34,10 +34,15 @@ private:
 	static void *CommandThreadHandler( void *ptr );
 
 	static void GetCmd(char *_curCmd);
+
+public:
+
 	static void SetCmd(char *_curCmd);
 
 
-public:
+
+
+	static CmdManager* Instnace();
 	int connect(const char *host, int port);
 	int disconnect();
 	void on_connect(int rc);
