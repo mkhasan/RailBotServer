@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
 		controlIP = argv[1];
 
 
+	sprintf(cmd, "%c5000000%c000000000", 0x02, 0x03);
 	if (pthread_mutex_init(&lock, NULL) != 0) {
 
 		RB_ERROR("mutex init failed\n");
@@ -56,7 +57,7 @@ int main(int argc, char *argv[]) {
 
 	char curCmd[100];
 
-	const char* speed1 = "0010";
+	const char* speed1 = "0020";
 	const char* dist = "0005";
 
 	while (key != 'q') {
@@ -135,8 +136,9 @@ void *CommandThreadHandler( void *ptr ) {
 
 	memset((char *) &si_other, 0, sizeof(si_other));
 	si_other.sin_family = AF_INET;
-	si_other.sin_port = htons(CTROL_PORT);
+	si_other.sin_port = htons(CTRL_PORT);
 
+	RB_DEBUG("target ip %s, targbet port %d \n", controlIP.c_str(), CTRL_PORT);
 	if (inet_aton(controlIP.c_str() , &si_other.sin_addr) == 0)	{
 
 		RB_ERROR("CommandThreadHandler: inet_aton() failed \n");
@@ -155,13 +157,20 @@ void *CommandThreadHandler( void *ptr ) {
 	receiverInfo.s = s;
 	receiverInfo.si_other = si_other;
 
-	pthread_t receiverT;
+	pthread_t receiverT = NULL;
+
+
+
 
 	if( pthread_create( &receiverT , NULL ,  Receiver , (void *) &receiverInfo) < 0)
 	{
 		RB_ERROR("could not create thread");
 		exit(1);
 	}
+
+
+
+
 
 	while (quit == false)
 	{
@@ -178,18 +187,24 @@ void *CommandThreadHandler( void *ptr ) {
 
 		strcpy(message, curCmd);
 
-		if (sendto(s, message, strlen(message) , 0 , (struct sockaddr *) &si_other, slen)==-1) {
+		if(message[1] != '5') {
+			RB_DEBUG("Sending cmd %c%c%c%c%c%c \n", message[1], message[2], message[3], message[4], message[5], message[6]);
 
-			RB_ERROR("CommandThreadHandler: sendto() failed \n");
-			exit(1);
+
+			if (sendto(s, message, strlen(message) , 0 , (struct sockaddr *) &si_other, slen)==-1) {
+
+				RB_ERROR("CommandThreadHandler: sendto() failed \n");
+				exit(1);
+			}
+
 		}
-
-
 		Sleep(500);
+
 	}
 
 
-	pthread_cancel(receiverT);
+	if(receiverT != NULL)
+		pthread_cancel(receiverT);
 
 	close(s);
 
