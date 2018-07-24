@@ -26,6 +26,7 @@ typedef unsigned short WORD;
 
 #define CTRL_PORT 8081
 
+#define CMD_LEN 16
 
 #define PACK_SIZE 60024
 #define RTP_HEADER_SIZE 12

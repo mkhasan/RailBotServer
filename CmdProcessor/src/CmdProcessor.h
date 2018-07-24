@@ -17,9 +17,9 @@
 #define TRUE 1
 #define FALSE 0
 
-enum {CMD_NONE, CMD_FORWARD};
 
-#define CMD_LEN 16
+
+
 #define sprintf_s sprintf
 
 struct receiver_info {

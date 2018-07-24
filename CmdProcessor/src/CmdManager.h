@@ -8,6 +8,8 @@
 
 #include "CmdProcessor.h"
 
+#include "Def.h"
+
 #include <mosquittopp.h>
 #include <pthread.h>
 
