@@ -29,6 +29,7 @@ struct receiver_info {
 
 
 void *CommandThreadHandler( void *ptr );
+void *MosquittoThreadHandler( void *ptr );
 void *Receiver( void *ptr );
 void SetCmd(const char * cmd);
 void GetCmd(char * cmd);

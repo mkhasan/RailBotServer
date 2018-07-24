@@ -47,11 +47,14 @@ int main(int argc, char *argv[]) {
 
 	////////////  initializing mosquitto ///////////////
 
+	mosqpp::lib_init();
+
 	CmdManager *cmdManager = CmdManager::Instnace();
 	int ret = cmdManager->connect("localhost", 1883);
 	RB_ASSERT(ret == 0);
 
 	pthread_t threadT;
+	pthread_t mosquittoT;
 
 
 	if( pthread_create( &threadT , NULL ,  CommandThreadHandler , NULL) < 0)
@@ -59,6 +62,14 @@ int main(int argc, char *argv[]) {
 		RB_ERROR("could not create thread");
 		return 1;
 	}
+
+	if( pthread_create( &mosquittoT , NULL ,  MosquittoThreadHandler , NULL) < 0)
+	{
+		RB_ERROR("could not create thread");
+		return 1;
+	}
+
+
 
 
 	char key='0';
@@ -181,7 +192,11 @@ int main(int argc, char *argv[]) {
 
 	pthread_join(threadT,NULL);
 
+	pthread_join(mosquittoT, NULL);
+
 	pthread_mutex_destroy(&lock);
+
+	mosqpp::lib_cleanup();
 
 	return 0;
 }
@@ -278,6 +293,26 @@ void *CommandThreadHandler( void *ptr ) {
 
 
 	return 0;
+}
+
+
+void *MosquittoThreadHandler( void *ptr ) {
+	int rc;
+	CmdManager * p = CmdManager::Instnace();
+
+
+	while(!quit) {
+		rc = p->loop();
+		if(rc) {
+			RB_DEBUG("MosquittoThreadHandler: p not connected \n");
+			p->reconnect();
+		}
+
+		RB_DEBUG("looping \n");
+	}
+
+	RB_DEBUG("MosquittoThreadHandler: Terminating ...\n");
+	return NULL;
 }
 
 void *Receiver( void *ptr ) {
