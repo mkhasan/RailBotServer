@@ -18,6 +18,7 @@ typedef unsigned short WORD;
 
 #endif
 
+#define SERVER_IP "143.248.221.68"
 
 #define CTRL_IP "120.203.102.209"
 #define IMAGE_CAM_IP "120.203.102.210"
