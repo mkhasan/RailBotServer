@@ -52,6 +52,8 @@ void set_pixel(SDL_Surface *surface, int x, int y, Uint32 pixel);
 int main(int argc, char **argv) {
 	int ret = 0;
 
+	printf("size: %d \n", sizeof(DWORD));
+	exit(-1);
 
 	signal(SIGTERM, CatchSignal);
 	//signal(SIGINT, CatchSignal);		// caught in a different way for testing

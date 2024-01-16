@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/RbUtils.dir/src/utils.cpp.o"
-  "../../lib/libRbUtils.pdb"
   "../../lib/libRbUtils.a"
+  "../../lib/libRbUtils.pdb"
+  "CMakeFiles/RbUtils.dir/src/utils.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.

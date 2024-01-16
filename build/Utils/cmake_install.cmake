@@ -1,4 +1,4 @@
-# Install script for directory: /home/usrc/external/RailRobot/RailBotServer/Utils
+# Install script for directory: /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/Utils
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
