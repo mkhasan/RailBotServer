@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/MQTT_Receiver/src/mqtt_receiver_test.cpp
+mosquittopp.h
+-
+pthread.h
+-
+unistd.h
+-
+string
+-
+memory
+-
+fstream
+-
+iostream
+-
+string.h
+-
+

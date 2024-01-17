@@ -111,6 +111,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/rule:
+	cd /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build && $(MAKE) -f CMakeFiles/Makefile2 MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/rule
+.PHONY : MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/rule
+
+# Convenience name for target.
+mqtt_receiver_test: MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/rule
+
+.PHONY : mqtt_receiver_test
+
+# fast build rule for target.
+mqtt_receiver_test/fast:
+	cd /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build && $(MAKE) -f MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/build.make MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/build
+.PHONY : mqtt_receiver_test/fast
+
+# Convenience name for target.
 MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/rule:
 	cd /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build && $(MAKE) -f CMakeFiles/Makefile2 MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/rule
 .PHONY : MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/rule
@@ -179,6 +194,33 @@ src/mqtt_receiver.cpp.s:
 	cd /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build && $(MAKE) -f MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/build.make MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/src/mqtt_receiver.cpp.s
 .PHONY : src/mqtt_receiver.cpp.s
 
+src/mqtt_receiver_test.o: src/mqtt_receiver_test.cpp.o
+
+.PHONY : src/mqtt_receiver_test.o
+
+# target to build an object file
+src/mqtt_receiver_test.cpp.o:
+	cd /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build && $(MAKE) -f MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/build.make MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/src/mqtt_receiver_test.cpp.o
+.PHONY : src/mqtt_receiver_test.cpp.o
+
+src/mqtt_receiver_test.i: src/mqtt_receiver_test.cpp.i
+
+.PHONY : src/mqtt_receiver_test.i
+
+# target to preprocess a source file
+src/mqtt_receiver_test.cpp.i:
+	cd /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build && $(MAKE) -f MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/build.make MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/src/mqtt_receiver_test.cpp.i
+.PHONY : src/mqtt_receiver_test.cpp.i
+
+src/mqtt_receiver_test.s: src/mqtt_receiver_test.cpp.s
+
+.PHONY : src/mqtt_receiver_test.s
+
+# target to generate assembly for a file
+src/mqtt_receiver_test.cpp.s:
+	cd /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build && $(MAKE) -f MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/build.make MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/src/mqtt_receiver_test.cpp.s
+.PHONY : src/mqtt_receiver_test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -187,6 +229,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... mqtt_receiver_test"
 	@echo "... mqtt_receiver"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
@@ -194,6 +237,9 @@ help:
 	@echo "... src/mqtt_receiver.o"
 	@echo "... src/mqtt_receiver.i"
 	@echo "... src/mqtt_receiver.s"
+	@echo "... src/mqtt_receiver_test.o"
+	@echo "... src/mqtt_receiver_test.i"
+	@echo "... src/mqtt_receiver_test.s"
 .PHONY : help
 
 

@@ -8,10 +8,16 @@
 
 /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/MQTT_Receiver/src/abs_receiver.h
 
-/home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/MQTT_Receiver/src/main.cpp
+/home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/MQTT_Receiver/src/mqtt_receiver.cpp
 mqtt_receiver.h
 /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/MQTT_Receiver/src/mqtt_receiver.h
+assert.h
+-
 iostream
+-
+memory
+-
+string.h
 -
 
 /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/MQTT_Receiver/src/mqtt_receiver.h
@@ -24,5 +30,7 @@ pthread.h
 string
 -
 memory
+-
+fstream
 -
 

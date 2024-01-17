@@ -8,6 +8,7 @@
 
 #include <string>
 #include <memory>
+#include <fstream>
 
 class MqttReceiver;
 
@@ -20,6 +21,8 @@ class myMosq : public mosqpp::mosquittopp {
     const char    *     topic;
     int                port;
     int                keepalive;
+
+    std::ofstream fs;
 
 
     void on_connect(int rc);

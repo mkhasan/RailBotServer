@@ -176,6 +176,19 @@ CmdProcessor/fast:
 .PHONY : CmdProcessor/fast
 
 #=============================================================================
+# Target rules for targets named mqtt_receiver_test
+
+# Build rule for target.
+mqtt_receiver_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 mqtt_receiver_test
+.PHONY : mqtt_receiver_test
+
+# fast build rule for target.
+mqtt_receiver_test/fast:
+	$(MAKE) -f MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/build.make MQTT_Receiver/CMakeFiles/mqtt_receiver_test.dir/build
+.PHONY : mqtt_receiver_test/fast
+
+#=============================================================================
 # Target rules for targets named mqtt_receiver
 
 # Build rule for target.
@@ -201,6 +214,7 @@ help:
 	@echo "... IR_Server"
 	@echo "... IR_Handler"
 	@echo "... CmdProcessor"
+	@echo "... mqtt_receiver_test"
 	@echo "... mqtt_receiver"
 .PHONY : help
 

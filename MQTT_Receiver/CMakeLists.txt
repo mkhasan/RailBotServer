@@ -25,4 +25,8 @@ add_executable(${TARGET} src/main.cpp src/mqtt_receiver.cpp )
 
 target_link_libraries(${TARGET} ACE pthread mosquitto mosquittopp)
 
+add_executable(mqtt_receiver_test src/mqtt_receiver_test.cpp)
+
+target_link_libraries(mqtt_receiver_test mosquitto mosquittopp)
+
  

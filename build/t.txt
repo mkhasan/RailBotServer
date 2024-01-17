@@ -1,0 +1,5 @@
+>> myMosq - connected with server
+1 2
+1 2
+1 2
+>> myMosq - disconnection(0)
