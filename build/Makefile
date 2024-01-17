@@ -175,6 +175,19 @@ CmdProcessor/fast:
 	$(MAKE) -f CmdProcessor/CMakeFiles/CmdProcessor.dir/build.make CmdProcessor/CMakeFiles/CmdProcessor.dir/build
 .PHONY : CmdProcessor/fast
 
+#=============================================================================
+# Target rules for targets named mqtt_receiver
+
+# Build rule for target.
+mqtt_receiver: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 mqtt_receiver
+.PHONY : mqtt_receiver
+
+# fast build rule for target.
+mqtt_receiver/fast:
+	$(MAKE) -f MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/build.make MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/build
+.PHONY : mqtt_receiver/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -188,6 +201,7 @@ help:
 	@echo "... IR_Server"
 	@echo "... IR_Handler"
 	@echo "... CmdProcessor"
+	@echo "... mqtt_receiver"
 .PHONY : help
 
 

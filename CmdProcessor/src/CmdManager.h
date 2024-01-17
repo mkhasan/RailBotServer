@@ -12,6 +12,7 @@
 #include <pthread.h>
 
 
+
 class CmdManager : public mosqpp::mosquittopp
 {
 

@@ -43,6 +43,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build/IR_Server/cmake_install.cmake")
   include("/home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build/IR_Handler/cmake_install.cmake")
   include("/home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build/CmdProcessor/cmake_install.cmake")
+  include("/home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build/MQTT_Receiver/cmake_install.cmake")
 
 endif()
 

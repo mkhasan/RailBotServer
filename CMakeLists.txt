@@ -22,4 +22,5 @@ add_subdirectory(IR_Server)
 add_subdirectory(IR_Handler)
 #add_subdirectory(CompressionTest)
 add_subdirectory(CmdProcessor)
+add_subdirectory(MQTT_Receiver)
  

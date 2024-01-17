@@ -57,6 +57,7 @@ all: Utils/all
 all: IR_Server/all
 all: IR_Handler/all
 all: CmdProcessor/all
+all: MQTT_Receiver/all
 
 .PHONY : all
 
@@ -65,6 +66,7 @@ preinstall: Utils/preinstall
 preinstall: IR_Server/preinstall
 preinstall: IR_Handler/preinstall
 preinstall: CmdProcessor/preinstall
+preinstall: MQTT_Receiver/preinstall
 
 .PHONY : preinstall
 
@@ -73,6 +75,7 @@ clean: Utils/clean
 clean: IR_Server/clean
 clean: IR_Handler/clean
 clean: CmdProcessor/clean
+clean: MQTT_Receiver/clean
 
 .PHONY : clean
 
@@ -129,6 +132,24 @@ IR_Server/preinstall:
 IR_Server/clean: IR_Server/CMakeFiles/IR_Server.dir/clean
 
 .PHONY : IR_Server/clean
+
+#=============================================================================
+# Directory level rules for directory MQTT_Receiver
+
+# Recursive "all" directory target.
+MQTT_Receiver/all: MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/all
+
+.PHONY : MQTT_Receiver/all
+
+# Recursive "preinstall" directory target.
+MQTT_Receiver/preinstall:
+
+.PHONY : MQTT_Receiver/preinstall
+
+# Recursive "clean" directory target.
+MQTT_Receiver/clean: MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/clean
+
+.PHONY : MQTT_Receiver/clean
 
 #=============================================================================
 # Directory level rules for directory Utils
@@ -284,6 +305,33 @@ CmdProcessor: CmdProcessor/CMakeFiles/CmdProcessor.dir/rule
 CmdProcessor/CMakeFiles/CmdProcessor.dir/clean:
 	$(MAKE) -f CmdProcessor/CMakeFiles/CmdProcessor.dir/build.make CmdProcessor/CMakeFiles/CmdProcessor.dir/clean
 .PHONY : CmdProcessor/CMakeFiles/CmdProcessor.dir/clean
+
+#=============================================================================
+# Target rules for target MQTT_Receiver/CMakeFiles/mqtt_receiver.dir
+
+# All Build rule for target.
+MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/all:
+	$(MAKE) -f MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/build.make MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/depend
+	$(MAKE) -f MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/build.make MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build/CMakeFiles --progress-num=24,25,26 "Built target mqtt_receiver"
+.PHONY : MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/all
+
+# Build rule for subdir invocation for target.
+MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/build/CMakeFiles 0
+.PHONY : MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/rule
+
+# Convenience name for target.
+mqtt_receiver: MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/rule
+
+.PHONY : mqtt_receiver
+
+# clean rule for target.
+MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/clean:
+	$(MAKE) -f MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/build.make MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/clean
+.PHONY : MQTT_Receiver/CMakeFiles/mqtt_receiver.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

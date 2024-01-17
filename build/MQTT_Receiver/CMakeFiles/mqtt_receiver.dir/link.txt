@@ -1,0 +1,1 @@
+/usr/bin/c++   -D_GNU_SOURCE=1 -D_REENTRANT -I/usr/include/SDL -ggdb -Wall -std=c++0x -Wno-narrowing -std=c++14  -rdynamic CMakeFiles/mqtt_receiver.dir/src/main.cpp.o CMakeFiles/mqtt_receiver.dir/src/mqtt_receiver.cpp.o  -o ../../bin/mqtt_receiver  -lACE -lpthread -lmosquitto -lmosquittopp 
