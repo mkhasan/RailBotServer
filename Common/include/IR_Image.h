@@ -21,12 +21,12 @@ class IR_Image
 
 public:
 
-	static const int SIZE = 204800;
+	static const int SIZE = 524288;
 
 	char data[SIZE];		// Mail Box contains a array of mail items
 	unsigned short width;
 	unsigned short height;
-	unsigned char pixelSize;
+	unsigned char pixelSize;		// in byte
 
 
 };

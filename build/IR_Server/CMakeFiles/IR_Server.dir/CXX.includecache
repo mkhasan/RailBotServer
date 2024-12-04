@@ -44,10 +44,6 @@ lzham_dynamic_lib.h
 lzham_static_lib.h
 ../Utils/src/lzham_static_lib.h
 
-/home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/Common/src/time.cpp
-Def.h
-/home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/Common/src/Def.h
-
 /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/IR_Server/src/CRtspSession.cpp
 Def.h
 /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/IR_Server/src/Def.h
@@ -145,10 +141,6 @@ string
 -
 fstream
 -
-
-/home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/IR_Server/src/JPEGSamples.cpp
-JPEGSamples.h
-/home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/IR_Server/src/JPEGSamples.h
 
 /home/mecasys/MyProjects/RailBot_4_dot_O/RailBotServer/IR_Server/src/JPEGSamples.h
 

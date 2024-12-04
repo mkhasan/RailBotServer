@@ -60,6 +60,7 @@ bool myMosq::send_message(const  char * _message, int _lenght)
     // * qos (0,1,2)
     // * retain (boolean) - indicates if message is retained on broker or not
     // Should return MOSQ_ERR_SUCCESS
+    cout << "publishiing \n";
     int ret = publish(NULL,this->topic,_lenght,_message,1,false);
     return ( ret == MOSQ_ERR_SUCCESS );
 }
@@ -84,12 +85,16 @@ void myMosq::on_publish(int mid)
 
  int main(int argc, char* argv[]) {
 
-    unique_ptr<myMosq> mqttInterface = make_unique<myMosq>("mqtt_receiver_test", "irimage", "192.168.0.34", 1883);
+    unique_ptr<myMosq> mqttInterface = make_unique<myMosq>("mqtt_receiver_test1", "irimage", "127.0.0.1", 1883);
 
     char * str = "hello";
     //mqttInterface->send_message(str, strlen(str));
+    if (argc < 2) {
+        cout << "filename not given" << endl;
+        return -1;
+    }
 
-    ifstream fs = ifstream("example.bin", std::ios::out | std::ios::binary);
+    ifstream fs = ifstream(argv[1], std::ios::out | std::ios::binary);
 
     bool flag = true;
 
@@ -100,6 +105,7 @@ void myMosq::on_publish(int mid)
     while(flag) {
 
         fs.read (buffer,length);
+
         if (fs) {
             cout << "all characters read successfully." << endl;
             mqttInterface->send_message(buffer, length);
@@ -110,11 +116,11 @@ void myMosq::on_publish(int mid)
             fs.clear();
             fs.seekg(ios::beg);
             count ++;
-            if (count >= 15)
+            if (count >= 500)
                 flag = false;
         }
 
-        usleep(100000);
+        usleep(25000);
 
     }
 

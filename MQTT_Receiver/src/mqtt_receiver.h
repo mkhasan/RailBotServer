@@ -36,7 +36,7 @@ public:
 
 };
 
-class MqttReceiver : public AbsReceiver {
+class MqttReceiver {
 
     std::unique_ptr<myMosq> mqttInterface;
 public:

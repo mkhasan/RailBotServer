@@ -57,6 +57,7 @@ void myMosq::on_message(const mosquitto_message * message) {
 		p = (const char *) message->payload;
         cout << message->payloadlen << endl;
         fs.write(p, message->payloadlen);
+        
 	}
 }
 
